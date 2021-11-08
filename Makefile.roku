@@ -40,7 +40,6 @@ PATH_MANIFEST = $(ROKU)/assets/manifest
 LDFLAGS += -lEGL -lGLESv2 -lz -lRokuIDK
 
 # Use above variables and populate rest of Makefile with the following rules:
-#
 #       all: Will build $(PACKAGE).  Incremental build will also work.
 #     clean: Delete everything, the way this sample directory came.
 # repackage: Files in your assets/ changed, copy them again and update package.
