@@ -7,7 +7,7 @@
 #else
 #include <OpenGL/gl.h>
 #endif
-#elif defined __ANDROID__ || defined ANGLE || defined ROKU
+#elif defined __ANDROID__ || defined ANGLE || defined ROKU || defined STEAMLINK
 #include <GLES2/gl2.h>
 #else
 #include <GL/gl.h>
