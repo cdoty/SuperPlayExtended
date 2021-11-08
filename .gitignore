@@ -17,4 +17,4 @@ Debug/SuperPlay.lib
 *.o
 *.d
 *.squashfs.bin
-Roku/package/*.*
+/Roku/package/*
