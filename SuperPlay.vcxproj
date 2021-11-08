@@ -58,7 +58,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;ANGLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>Src;Src/Base;Src/Windows;Shared;Shared/Windows;Shared/Libraries;Shared/Libraries/Angle/include;Shared/Libraries/boost_1_71_0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;Src/Base;Src/Windows;Shared;Shared/Base;Shared/Windows;Shared/Libraries;Shared/Libraries/Angle/include;Shared/Libraries/boost_1_71_0</AdditionalIncludeDirectories>
       <BufferSecurityCheck>true</BufferSecurityCheck>
     </ClCompile>
     <Link>
@@ -77,7 +77,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;ANGLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>Src;Src/Base;Src/Windows;Shared;Shared/Windows;Shared/Libraries;Shared/Libraries/boost_1_71_0;Shared/Libraries/Angle/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;Src/Base;Src/Windows;Shared;Shared/Base;Shared/Windows;Shared/Libraries;Shared/Libraries/boost_1_71_0;Shared/Libraries/Angle/include</AdditionalIncludeDirectories>
       <BufferSecurityCheck>true</BufferSecurityCheck>
     </ClCompile>
     <Link>
@@ -91,6 +91,7 @@
   <ItemGroup>
     <ClInclude Include="Resources\Windows\resource.h" />
     <ClInclude Include="Resources\Windows\targetver.h" />
+    <ClInclude Include="Shared\Base\FileBase.h" />
     <ClInclude Include="Shared\Functions.h" />
     <ClInclude Include="Shared\Libraries\STB\stb_image.h" />
     <ClInclude Include="Shared\Libraries\UTF8\utf8.h" />
@@ -123,6 +124,7 @@
     <ClInclude Include="Src\Windows\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Shared\Base\FileBase.cpp" />
     <ClCompile Include="Shared\Functions.cpp" />
     <ClCompile Include="Shared\Libraries\STB\stb_image.cpp" />
     <ClCompile Include="Shared\Log.cpp" />

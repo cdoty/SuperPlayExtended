@@ -131,6 +131,9 @@
     <ClInclude Include="Src\Base\DisplayBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Shared\Base\FileBase.h">
+      <Filter>Shared\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Windows\Main.cpp">
@@ -186,6 +189,9 @@
     </ClCompile>
     <ClCompile Include="Src\Base\DisplayBase.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shared\Base\FileBase.cpp">
+      <Filter>Shared\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,8 +2,6 @@
 
 #include <random>
 
-#include "Macros.h"
-
 class Functions
 {
 	public:
