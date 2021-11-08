@@ -410,13 +410,6 @@ bool DisplayBase::drawTriangles(int _iVertexBufferIndex, int _iVertices, int _iI
 		return	false;
 	}
 	
-	if (_iIndexBufferIndex < 0 || _iIndexBufferIndex >= (int)m_vecIndexBuffers.size())
-	{
-		Log::instance()->logError("Index buffer index is invalid.");
-
-		return	false;
-	}
-
 	VertexBuffer::Ptr	pVertexBuffer	= m_vecVertexBuffers[_iVertexBufferIndex];
 	
 	if (nullptr == pVertexBuffer)
@@ -438,8 +431,15 @@ bool DisplayBase::drawTriangles(int _iVertexBufferIndex, int _iVertices, int _iI
 	glVertexAttribPointer(m_iVertexArray, 2, GL_FLOAT, false, iStride, &pBuffer[0].fX);
 	glVertexAttribPointer(m_iUVArray, 2, GL_FLOAT, false, iStride, &pBuffer[0].fU);
 
-	if (_iIndexBufferIndex != -1)
+	if (_iIndexBufferIndex >= 0 -1)
 	{
+		if (_iIndexBufferIndex >= (int)m_vecIndexBuffers.size())
+		{
+			Log::instance()->logError("Index buffer index is invalid.");
+
+			return	false;
+		}
+
 		int	iIndexCount;
 
 		GLushort*	pIndexBuffer	= m_vecIndexBuffers[_iIndexBufferIndex]->getBuffer(iIndexCount).get();
@@ -568,113 +568,69 @@ bool DisplayBase::createVertexBuffer()
 
 bool DisplayBase::setupVertices()
 {
-	VertexBuffer::Ptr	pVertexBuffer	= getVertexBuffer(m_iVertexBuffer);
-
 	int	iVertices;
 	
-	CustomVertex*	pBuffer	= (CustomVertex*)pVertexBuffer->getBuffer(iVertices).get();
+	VertexBuffer::Ptr	pVertexBuffer	= getVertexBuffer(m_iVertexBuffer);
 
-	float	fOffsetX	= static_cast<float>(m_ptOffset.iX);
-	float	fOffsetY	= static_cast<float>(m_ptOffset.iY);
-
-	// (0)*--*(2)
-	//    | /|
-	// (1)*--*(3)
-	// UVs are flipped to adjust for OpenGL's coordinate system
-	int	iIndex	= 0;
-
-#ifdef __IOS__
-	const GameHeader&	gameHeader	= System::getGameHeader();
-
-	float	fScreenWidth	= static_cast<float>(gameHeader.iWindowedWidth);
-	float	fScreenHeight	= static_cast<float>(gameHeader.iWindowedHeight);
-
-	if (true == gameHeader.bPortrait)
+	if (pVertexBuffer != nullptr)
 	{
-		pBuffer[iIndex].fX	= (320 - gameHeader.iScreenWidth) / 2;
-		pBuffer[iIndex].fY	= 8 + (256 - gameHeader.iScreenHeight) / 2;
-	}
+		CustomVertex*	pBuffer	= (CustomVertex*)pVertexBuffer->getBuffer(iVertices).get();
 
-	else
-	{
+		float	fOffsetX	= static_cast<float>(m_ptOffset.iX);
+		float	fOffsetY	= static_cast<float>(m_ptOffset.iY);
+
+		// (0)*--*(2)
+		//    | /|
+		// (1)*--*(3)
+		// UVs are flipped to adjust for OpenGL's coordinate system
+		int	iIndex	= 0;
+
 		pBuffer[iIndex].fX	= fOffsetX;
 		pBuffer[iIndex].fY	= fOffsetY;
-	}
-#else
-	pBuffer[iIndex].fX	= fOffsetX;
-	pBuffer[iIndex].fY	= fOffsetY;
-#endif
-
-	pBuffer[iIndex].fU	= 0.0;
-	pBuffer[iIndex].fV	= m_fV2;
+		pBuffer[iIndex].fU	= 0.0;
+		pBuffer[iIndex].fV	= m_fV2;
 	
-	iIndex++;
+		iIndex++;
 
 #ifdef __IOS__
-	if (true == gameHeader.bPortrait)
-	{
-		pBuffer[iIndex].fX	= (320 - gameHeader.iScreenWidth) / 2;
-		pBuffer[iIndex].fY	= 8 + 256 - (256 - gameHeader.iScreenHeight) / 2;
-	}
-
-	else
-	{
 		pBuffer[iIndex].fX	= fOffsetX;
-		pBuffer[iIndex].fY	= fScreenHeight - fOffsetY;
-	}
+		pBuffer[iIndex].fY	= m_iHeight - fOffsetY;
 #else
-	pBuffer[iIndex].fX	= fOffsetX;
-	pBuffer[iIndex].fY	= fOffsetY + m_fRenderHeight;
+		pBuffer[iIndex].fX	= fOffsetX;
+		pBuffer[iIndex].fY	= fOffsetY + m_fRenderHeight;
 #endif
 
-	pBuffer[iIndex].fU	= 0.0f;
-	pBuffer[iIndex].fV	= 0.0f;
+		pBuffer[iIndex].fU	= 0.0f;
+		pBuffer[iIndex].fV	= 0.0f;
 	
-	iIndex++;
+		iIndex++;
 
 #ifdef __IOS__
-	if (true == gameHeader.bPortrait)
-	{
-		pBuffer[iIndex].fX	= 320 - (320 - gameHeader.iScreenWidth) / 2;
-		pBuffer[iIndex].fY	= 8 + (256 - gameHeader.iScreenHeight) / 2;
-	}
-
-	else
-	{
-		pBuffer[iIndex].fX	= fScreenWidth - fOffsetX;
+		pBuffer[iIndex].fX	= m_iWidth - fOffsetX;
 		pBuffer[iIndex].fY	= fOffsetY;
-	}
 #else
-	pBuffer[iIndex].fX	= fOffsetX + m_fRenderWidth;
-	pBuffer[iIndex].fY	= fOffsetY;
+		pBuffer[iIndex].fX	= fOffsetX + m_fRenderWidth;
+		pBuffer[iIndex].fY	= fOffsetY;
 #endif
 
-	pBuffer[iIndex].fU	= m_fU2;
-	pBuffer[iIndex].fV	= m_fV2;
+		pBuffer[iIndex].fU	= m_fU2;
+		pBuffer[iIndex].fV	= m_fV2;
 	
-	iIndex++;
+		iIndex++;
 
 #ifdef __IOS__
-	if (true == gameHeader.bPortrait)
-	{
-		pBuffer[iIndex].fX	= 320 - (320 - gameHeader.iScreenWidth) / 2;
-		pBuffer[iIndex].fY	= 8 + 256 - (256 - gameHeader.iScreenHeight) / 2;
-	}
-
-	else
-	{
-		pBuffer[iIndex].fX	= fScreenWidth - fOffsetX;
-		pBuffer[iIndex].fY	= fScreenHeight - fOffsetY;
-	}
+		pBuffer[iIndex].fX	= m_iWidth - fOffsetX;
+		pBuffer[iIndex].fY	= m_iHeight - fOffsetY;
 #else
-	pBuffer[iIndex].fX	= fOffsetX + m_fRenderWidth;
-	pBuffer[iIndex].fY	= fOffsetY + m_fRenderHeight;
+		pBuffer[iIndex].fX	= fOffsetX + m_fRenderWidth;
+		pBuffer[iIndex].fY	= fOffsetY + m_fRenderHeight;
 #endif
 
-	pBuffer[iIndex].fU	= m_fU2;
-	pBuffer[iIndex].fV	= 0.0f;
+		pBuffer[iIndex].fU	= m_fU2;
+		pBuffer[iIndex].fV	= 0.0f;
 
-	pVertexBuffer->releaseBuffer();
+		pVertexBuffer->releaseBuffer();
+	}
 
 	return	true;
 }
