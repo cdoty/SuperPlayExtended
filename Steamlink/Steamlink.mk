@@ -3,7 +3,7 @@ PATH_LIB = $(PATH_SDK)/lib
 PATH_USR = $(PATH_SDK)/usr
 PATH_TOOLCHAIN = $(PATH_SDK)/toolchain
 
-CROSS_COMPILE = $(PATH_TOOLCHAIN)/bin/arm-roku-linux-gnueabi-
+CROSS_COMPILE = $(PATH_TOOLCHAIN)/bin/armv7a-cros-linux-gnueabi-
 CC = $(CROSS_COMPILE)gcc
 CXX = $(CROSS_COMPILE)g++
 AR = $(CROSS_COMPILE)ar

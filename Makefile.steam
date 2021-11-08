@@ -1,5 +1,5 @@
 STEAMLINK = Steamlink
-ROKU_DIR = /home/cdoty/Roku
+ROKU_DIR = /home/cdoty/steamlink-sdk
 HOST_DIR = /mnt/e/Shared
 
 include $(STEAMLINK)/Steamlink.mk
@@ -13,15 +13,15 @@ RESOURCE_PATH	= Resources/Roku
 # Define source files
 SRC	= $(wildcard Src/*.cpp)
 SRC	+= $(wildcard Src/Base/*.cpp)
-SRC	+= $(wildcard Src/Roku/*.cpp)
+SRC	+= $(wildcard Src/Steamlink/*.cpp)
 SRC	+= $(wildcard Shared/*.cpp)
 SRC	+= $(wildcard Shared/Base/*.cpp)
-SRC	+= $(wildcard Shared/Roku/*.cpp)
+SRC	+= $(wildcard Shared/Steamlink/*.cpp)
 SRC	+= $(wildcard Shared/Libraries/STB/*.cpp)
 SRC	+= $(wildcard Shared/Libraries/vmath/*.cpp)
 
 # Define include paths
-INCLUDES = -ISrc -ISrc/Base -ISrc/Roku -IShared -IShared/Base -IShared/Roku -IShared/Libraries
+INCLUDES = -ISrc -ISrc/Base -ISrc/Steamlink -IShared -IShared/Base -IShared/Steamlink -IShared/Libraries
 
 # Define objects
 OBJECTS	= $(SRC:.cpp=.o)
@@ -36,10 +36,10 @@ PACKAGE = ./$(BINARY).squashfs.bin
 
 # Directory where manifest file lives.  The manifest file specifies name,
 # channel icons, and splash screen.
-PATH_MANIFEST = $(ROKU)/assets/manifest
+PATH_MANIFEST = $(STEAMLINK)/assets/manifest
 
 # Use above variables and populate rest of Makefile with the following rules:
 #       all: Will build $(PACKAGE).  Incremental build will also work.
 #     clean: Delete everything, the way this sample directory came.
 # repackage: Files in your assets/ changed, copy them again and update package.
-include $(ROKU)/rules.mk
+include $(STEAMLINK)/rules.mk
