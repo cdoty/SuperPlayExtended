@@ -1,0 +1,16 @@
+
+SuperPlay.vcxproj.user
+*.obj
+*.pdb
+*.idb
+*.tlog
+*.log
+*.ilk
+*.exp
+*.exe
+*.ipch
+*.res
+Debug/SuperPlay.lib
+*.opendb
+*.db
+.vs/SuperPlay/v15/.suo
