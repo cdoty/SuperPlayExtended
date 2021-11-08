@@ -1,5 +1,5 @@
 STEAMLINK = Steamlink
-ROKU_DIR = /home/cdoty/steamlink-sdk
+STEAMLINK_DIR = /home/cdoty/steamlink-sdk
 HOST_DIR = /mnt/e/Shared
 
 include $(STEAMLINK)/Steamlink.mk
@@ -8,7 +8,7 @@ include $(STEAMLINK)/Steamlink.mk
 BINARY = SuperPlay
 
 # Resource path, for icons and splash screens.
-RESOURCE_PATH	= Resources/Roku
+RESOURCE_PATH	= Resources/Steamlink
 
 # Define source files
 SRC	= $(wildcard Src/*.cpp)
@@ -26,20 +26,8 @@ INCLUDES = -ISrc -ISrc/Base -ISrc/Steamlink -IShared -IShared/Base -IShared/Stea
 # Define objects
 OBJECTS	= $(SRC:.cpp=.o)
 
-# Additional library to link.  Note it uses +=, and should only be set after
-# including Roku4.mk.
-LIBRARIES = -lEGL -lGLESv2 -lz
+LIBRARIES += -lEGL -lGLESv2 -lz
 
-# End result of packaging.  Side-load this binary directly via the developer
-# installer interface.
-PACKAGE = ./$(BINARY).squashfs.bin
+PACKAGE = ./$(BINARY).tgz
 
-# Directory where manifest file lives.  The manifest file specifies name,
-# channel icons, and splash screen.
-PATH_MANIFEST = $(STEAMLINK)/assets/manifest
-
-# Use above variables and populate rest of Makefile with the following rules:
-#       all: Will build $(PACKAGE).  Incremental build will also work.
-#     clean: Delete everything, the way this sample directory came.
-# repackage: Files in your assets/ changed, copy them again and update package.
 include $(STEAMLINK)/rules.mk
