@@ -184,6 +184,11 @@ void Log::logString(eLogType _eType, const std::string& _strNewString)
 	fprintf(stderr, _strNewString.c_str());
 	fprintf(stderr, "\n");
 #endif
+
+#if defined STEAMLINK
+	fprintf(stderr, _strNewString.c_str());
+	fprintf(stderr, "\n");
+#endif
 }
 
 #ifdef WRITE_LOGS
