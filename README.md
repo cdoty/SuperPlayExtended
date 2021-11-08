@@ -15,7 +15,7 @@ In Makefile.roku:
 To build the project, type "make -f Makefile.roku" or use the build key combination in Visual Studio Code.
 To clean the project, type "make -f Makefile.roku clean" or use the clean key combination in Visual Studio Code.
 
-# Customizing the project
+# Customizing the project:
 * ROKU set the location of the Roku build rules and assets.
 * BINARY sets the name of the executable and the squashfs file.
 * RESOURCE_PATH sets the location of the icon and splash screen files.
