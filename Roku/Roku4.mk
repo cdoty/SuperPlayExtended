@@ -1,8 +1,8 @@
 # Copyright 2021 Roku, Inc.  All rights reserved.
-PATH_IDK = $(ROKU_DIR)/platforms/Roku4
-PATH_LIB = $(PATH_IDK)/lib
-PATH_USR = $(PATH_IDK)/usr
-PATH_TOOLCHAIN = $(PATH_IDK)/toolchain
+PATH_SDK = $(ROKU_DIR)/platforms/Roku4
+PATH_LIB = $(PATH_SDK)/lib
+PATH_USR = $(PATH_SDK)/usr
+PATH_TOOLCHAIN = $(PATH_SDK)/toolchain
 
 CROSS_COMPILE = $(PATH_TOOLCHAIN)/bin/arm-roku-linux-gnueabi-
 CC = $(CROSS_COMPILE)gcc
@@ -17,7 +17,7 @@ RANLIB = $(CROSS_COMPILE)ranlib
 COMMON_FLAGS = -mcpu=cortex-a9 -mthumb \
 	-fvisibility=hidden -fdata-sections -ffunction-sections \
 	-Wno-parentheses -U_FORTIFY_SOURCE \
-	-I$(PATH_IDK)/include -I$(PATH_USR)/include $(INCLUDES) -DROKU
+	-I$(PATH_SDK)/include -I$(PATH_USR)/include $(INCLUDES) -DROKU
 
 CFLAGS = -std=c99 $(COMMON_FLAGS)
 CXXFLAGS = -std=c++14 -fvisibility-inlines-hidden $(COMMON_FLAGS)
