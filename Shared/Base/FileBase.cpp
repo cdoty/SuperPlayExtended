@@ -24,7 +24,7 @@ bool FileBase::open(const std::string& _strFilename, bool _bBinary)
 		close();
 	}
 	
-	fopen_s(&m_pHandle, _strFilename.c_str(), true == _bBinary ? "rb" : "rt");
+	m_pHandle	= fopen(_strFilename.c_str(), true == _bBinary ? "rb" : "rt");
 	
 	if (NULL == m_pHandle)
 	{

@@ -16,10 +16,10 @@ class FileBase
 		FileBase();
 
 		// Destructor
-		~FileBase();
+		virtual ~FileBase();
 
 		// Open file
-		bool open(const std::string& _strFilename, bool _bBinary = false);
+		virtual bool open(const std::string& _strFilename, bool _bBinary = false);
 	
 		// Close file
 		bool close();
@@ -74,7 +74,7 @@ class FileBase
 		// Get handle
 		FILE* getHandle() const {return m_pHandle;}
 
-	private:
+	protected:
 		FILE*	m_pHandle;	// File handle
 		bool	m_bBinary;	// Writing in binary format?
 };

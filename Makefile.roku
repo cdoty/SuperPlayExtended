@@ -19,12 +19,13 @@ SRC	= $(wildcard Src/*.cpp)
 SRC	+= $(wildcard Src/Base/*.cpp)
 SRC	+= $(wildcard Src/Roku/*.cpp)
 SRC	+= $(wildcard Shared/*.cpp)
+SRC	+= $(wildcard Shared/Base/*.cpp)
 SRC	+= $(wildcard Shared/Roku/*.cpp)
 SRC	+= $(wildcard Shared/Libraries/STB/*.cpp)
 SRC	+= $(wildcard Shared/Libraries/vmath/*.cpp)
 
 # Define include paths
-INCLUDES = -ISrc -ISrc/Base -ISrc/Roku -IShared -IShared/Roku -IShared/Libraries
+INCLUDES = -ISrc -ISrc/Base -ISrc/Roku -IShared -IShared/Base -IShared/Roku -IShared/Libraries
 
 # Define objects
 OBJECTS	= $(SRC:.cpp=.o)
