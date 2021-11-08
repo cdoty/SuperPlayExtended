@@ -8,9 +8,6 @@ class Display : public DisplayBase
 		PTR(Display)
 		SUPER(DisplayBase)
 
-		// Destructor
-		~Display();
-
 		// Create
 		static Ptr create();
 

@@ -14,11 +14,6 @@ Display::Display()	:
 {
 }
 
-Display::~Display()
-{
-	close();
-}
-
 Display::Ptr Display::create()
 {
 	INSTANCE(pDisplay, Display())

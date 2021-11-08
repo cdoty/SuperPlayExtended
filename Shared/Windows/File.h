@@ -9,9 +9,6 @@ class File : public FileBase
 		PTR(File)
 		SUPER(FileBase)
 
-		// Destructor
-		~File();
-
 		// Create
 		static Ptr create();
 

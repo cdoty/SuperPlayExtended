@@ -11,11 +11,6 @@ File::File() :
 {
 }
 
-File::~File()
-{
-	close();
-}
-
 File::Ptr File::create()
 {
 	INSTANCE(pFile, File());
