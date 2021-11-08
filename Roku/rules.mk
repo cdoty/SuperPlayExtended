@@ -54,6 +54,8 @@ $(PACKAGE): $(PATH_PACKAGE)/$(BINARY) $(ASSETS) $(COMPONENTS)
 	cp -f $(RESOURCE_PATH)/splash-480p.png $(PATH_PACKAGE)/source
 	chmod -R 755 $(PATH_PACKAGE)
 	$(UTIL_MKSQUASHFS) $(PATH_PACKAGE) $(PACKAGE) -force-uid 499 -force-gid 499 -noappend -comp gzip
+ifdef HOST_DIR	
 	cp $(PACKAGE) $(HOST_DIR)
+endif
 
 -include $(DEPENDS)
