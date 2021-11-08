@@ -853,7 +853,7 @@ void DisplayBase::logShaderError(GLuint _uShaderID, const char* _szName) const
 
 	Log::instance()->logError("Shader error in %s: %s", _szName, szInfoLog);
 
-	delete []	szInfoLog;
+	delete[]	szInfoLog;
 }
 
 void DisplayBase::logProgramError(GLuint _uProgramID) const
@@ -869,5 +869,5 @@ void DisplayBase::logProgramError(GLuint _uProgramID) const
 
 	Log::instance()->logError("Program error: %s", szInfoLog);
 
-	delete []	szInfoLog;
+	delete[]	szInfoLog;
 }

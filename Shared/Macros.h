@@ -54,10 +54,10 @@
 #define SHAREDINSTANCE(object, type, constructor) object = std::shared_ptr<type>(new (std::nothrow) constructor); //-V554
 #define SHAREDCREATEDINSTANCE(object, type, constructor) object = std::shared_ptr<type>(constructor); //-V554
 #define DEFINESHAREDINSTANCE(object, type, constructor) auto object = std::shared_ptr<type>(constructor); //-V554
-#define SHAREDBUFFER(object, type, size) object = std::shared_ptr<type>(new (std::nothrow) type[(size_t)(size)], [](type *p){delete [] p;}); //-V554
-#define DEFINESHAREDBUFFER(object, type, size) auto object = std::shared_ptr<type>(new (std::nothrow) type[(size_t)(size)], [](type *p){delete [] p;}); //-V554
-#define WRAPBUFFER(object, type, buffer) object = std::shared_ptr<type>(buffer, [](type *p){delete [] p;}); //-V554
-#define DEFINEWRAPBUFFER(object, type, buffer) auto object = std::shared_ptr<type>(buffer, [](type *p){delete [] p;}); //-V554
+#define SHAREDBUFFER(object, type, size) object = std::shared_ptr<type>(new (std::nothrow) type[(size_t)(size)], [](type *p){delete[] p;}); //-V554
+#define DEFINESHAREDBUFFER(object, type, size) auto object = std::shared_ptr<type>(new (std::nothrow) type[(size_t)(size)], [](type *p){delete[] p;}); //-V554
+#define WRAPBUFFER(object, type, buffer) object = std::shared_ptr<type>(buffer, [](type *p){delete[] p;}); //-V554
+#define DEFINEWRAPBUFFER(object, type, buffer) auto object = std::shared_ptr<type>(buffer, [](type *p){delete[] p;}); //-V554
 
 // Create a map, pair and iterator
 #define	MULTIARRAY(name, type, y, x) std::array<std::array<type, x>, y>	name;
