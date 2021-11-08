@@ -17,6 +17,7 @@ HOST_DIR = /mnt/e/Shared
 
 # Define source files
 SRC	= $(wildcard Src/*.cpp)
+SRC	+= $(wildcard Src/Base/*.cpp)
 SRC	+= $(wildcard Src/Roku/*.cpp)
 SRC	+= $(wildcard Shared/*.cpp)
 SRC	+= $(wildcard Shared/Roku/*.cpp)
@@ -25,7 +26,7 @@ SRC	+= $(wildcard Shared/Libraries/vmath/*.cpp)
 
 # Define objects
 OBJECTS	= $(SRC:.cpp=.o)
-INCLUDES = -ISrc -ISrc/Roku -IShared -IShared/Roku -IShared/Libraries
+INCLUDES = -ISrc -ISrc/Base -ISrc/Roku -IShared -IShared/Roku -IShared/Libraries
 
 #Resource path, for icons and splash screens.
 RESOURCE_PATH	= Resources/Roku
