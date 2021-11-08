@@ -6,6 +6,7 @@
 #include "Log.h"
 
 File::File() :
+	super(),
 	m_pHandle(NULL),
 	m_bBinary(false)
 {
