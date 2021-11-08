@@ -13,4 +13,7 @@ SuperPlay.vcxproj.user
 Debug/SuperPlay.lib
 *.opendb
 *.db
-.vs/SuperPlay/v15/.suo
+*.suo
+*.o
+*.d
+*.squashfs.bin
