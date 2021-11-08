@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Shared">
+      <UniqueIdentifier>{7ad569c1-aebe-4d52-9c9c-b0f69349b7a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Source Files">
+      <UniqueIdentifier>{493cc276-a226-4706-9cb7-8592d78d0694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Header Files">
+      <UniqueIdentifier>{0aba0a2c-9237-42ad-829f-198789a75804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{71b634a2-5a65-487c-8eed-ef5b84c31f14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{7bf3fff0-be58-4518-845d-a2ee2cee6f79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\UTF8">
+      <UniqueIdentifier>{e9598a0e-bc9b-4718-84d7-75c5893eee2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\UTF8\utf8">
+      <UniqueIdentifier>{3a4fa5d9-e8ea-4ea2-ab5a-1b158560299b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\STB">
+      <UniqueIdentifier>{4aed17c7-a05e-4927-bfc0-fa50de39697b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\Windows\CommandLine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\Log.h">
+      <Filter>Shared\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\WIndows\File.h">
+      <Filter>Shared\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\Functions.h">
+      <Filter>Shared\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\Macros.h">
+      <Filter>Shared\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\Libraries\UTF8\utf8.h">
+      <Filter>Libraries\UTF8</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\Libraries\UTF8\utf8\checked.h">
+      <Filter>Libraries\UTF8\utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\Libraries\UTF8\utf8\core.h">
+      <Filter>Libraries\UTF8\utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\Libraries\UTF8\utf8\unchecked.h">
+      <Filter>Libraries\UTF8\utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Windows\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\System.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\Windows\resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\Windows\targetver.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Windows\Display.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\CustomVertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\IndexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\PixelShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\VertexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Rect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\RenderParams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SpriteBatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\VertexShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\Libraries\STB\stb_image.h">
+      <Filter>Libraries\STB</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\KeyDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Base\WindowBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Base\DisplayBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\Windows\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Windows\CommandLine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shared\WIndows\File.cpp">
+      <Filter>Shared\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shared\Log.cpp">
+      <Filter>Shared\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shared\Functions.cpp">
+      <Filter>Shared\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Windows\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\System.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Windows\Display.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\IndexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SpriteBatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\VertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shared\Libraries\STB\stb_image.cpp">
+      <Filter>Libraries\STB</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Base\WindowBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Base\DisplayBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Windows\Application.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Windows\Small.ico">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources\Windows\Application.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{5F5F099A-ED56-41F7-94DB-B5B45F74F1D7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>SuperPlay</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>Environment\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;ANGLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>Src;Src/Base;Src/Windows;Shared;Shared/Windows;Shared/Libraries;Shared/Libraries/Angle/include;Shared/Libraries/boost_1_71_0</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>Shared\Libraries\Angle\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;ANGLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>Src;Src/Base;Src/Windows;Shared;Shared/Windows;Shared/Libraries;Shared/Libraries/boost_1_71_0;Shared/Libraries/Angle/include</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>Shared\Libraries\Angle\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Resources\Windows\resource.h" />
+    <ClInclude Include="Resources\Windows\targetver.h" />
+    <ClInclude Include="Shared\Functions.h" />
+    <ClInclude Include="Shared\Libraries\STB\stb_image.h" />
+    <ClInclude Include="Shared\Libraries\UTF8\utf8.h" />
+    <ClInclude Include="Shared\Libraries\UTF8\utf8\checked.h" />
+    <ClInclude Include="Shared\Libraries\UTF8\utf8\core.h" />
+    <ClInclude Include="Shared\Libraries\UTF8\utf8\unchecked.h" />
+    <ClInclude Include="Shared\Log.h" />
+    <ClInclude Include="Shared\Macros.h" />
+    <ClInclude Include="Shared\WIndows\File.h" />
+    <ClInclude Include="Src\Base\DisplayBase.h" />
+    <ClInclude Include="Src\Base\WindowBase.h" />
+    <ClInclude Include="Src\CustomVertex.h" />
+    <ClInclude Include="Src\Defines.h" />
+    <ClInclude Include="Src\Game.h" />
+    <ClInclude Include="Src\Image.h" />
+    <ClInclude Include="Src\IndexBuffer.h" />
+    <ClInclude Include="Src\KeyDefines.h" />
+    <ClInclude Include="Src\PixelShader.h" />
+    <ClInclude Include="Src\Point.h" />
+    <ClInclude Include="Src\Rect.h" />
+    <ClInclude Include="Src\RenderParams.h" />
+    <ClInclude Include="Src\ResourceManager.h" />
+    <ClInclude Include="Src\SpriteBatch.h" />
+    <ClInclude Include="Src\System.h" />
+    <ClInclude Include="Src\Texture.h" />
+    <ClInclude Include="Src\VertexBuffer.h" />
+    <ClInclude Include="Src\VertexShader.h" />
+    <ClInclude Include="Src\Windows\CommandLine.h" />
+    <ClInclude Include="Src\Windows\Display.h" />
+    <ClInclude Include="Src\Windows\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Shared\Functions.cpp" />
+    <ClCompile Include="Shared\Libraries\STB\stb_image.cpp" />
+    <ClCompile Include="Shared\Log.cpp" />
+    <ClCompile Include="Shared\WIndows\File.cpp" />
+    <ClCompile Include="Src\Base\DisplayBase.cpp" />
+    <ClCompile Include="Src\Base\WindowBase.cpp" />
+    <ClCompile Include="Src\Game.cpp" />
+    <ClCompile Include="Src\Image.cpp" />
+    <ClCompile Include="Src\IndexBuffer.cpp" />
+    <ClCompile Include="Src\ResourceManager.cpp" />
+    <ClCompile Include="Src\SpriteBatch.cpp" />
+    <ClCompile Include="Src\System.cpp" />
+    <ClCompile Include="Src\Texture.cpp" />
+    <ClCompile Include="Src\VertexBuffer.cpp" />
+    <ClCompile Include="Src\Windows\CommandLine.cpp" />
+    <ClCompile Include="Src\Windows\Display.cpp" />
+    <ClCompile Include="Src\Windows\Main.cpp" />
+    <ClCompile Include="Src\Windows\Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Windows\Application.ico" />
+    <Image Include="Resources\Windows\Small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources\Windows\Application.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

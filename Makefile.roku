@@ -1,0 +1,46 @@
+# Copyright 2021 Roku, Inc.  All rights reserved.
+
+# First define directory where rules.mk and Roku4.mk live.
+ROKU = Roku
+ROKU_INSTALL = /home/cdoty/Roku
+
+# Include platform default defines for toolchain, CFLAGS, LDFLAGS, etc.
+include $(ROKU)/Roku4.mk
+
+# Name of executable.
+BINARY = SuperPlay
+
+# End result of packaging.  Side-load this binary directly via the developer
+# installer interface.
+PACKAGE = ./SuperPlay.squashfs.bin
+HOST_DIR = /mnt/e/Shared
+
+# Define source files
+SRC	= $(wildcard Src/*.cpp)
+SRC	+= $(wildcard Src/Roku/*.cpp)
+SRC	+= $(wildcard Shared/*.cpp)
+SRC	+= $(wildcard Shared/Roku/*.cpp)
+SRC	+= $(wildcard Shared/Libraries/STB/*.cpp)
+SRC	+= $(wildcard Shared/Libraries/vmath/*.cpp)
+
+# Define objects
+OBJECTS	= $(SRC:.cpp=.o)
+INCLUDES = -ISrc -ISrc/Roku -IShared -IShared/Roku -IShared/Libraries
+
+#Resource path, for icons and splash screens.
+RESOURCE_PATH	= Resources/Roku
+
+# Directory where manifest file lives.  The manifest file specifies name,
+# channel icons, and splash screen.
+PATH_MANIFEST = $(ROKU)/assets/manifest
+
+# Additional library to link.  Note it uses +=, and should only be set after
+# including Roku4.mk.
+LDFLAGS += -lEGL -lGLESv2 -lz -lRokuIDK
+
+# Use above variables and populate rest of Makefile with the following rules:
+#
+#       all: Will build $(PACKAGE).  Incremental build will also work.
+#     clean: Delete everything, the way this sample directory came.
+# repackage: Files in your assets/ changed, copy them again and update package.
+include $(ROKU)/rules.mk
