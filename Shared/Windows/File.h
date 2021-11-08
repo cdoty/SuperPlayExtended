@@ -47,9 +47,6 @@ class File : public FileBase
 		FILE* getHandle() const {return m_pHandle;}
 
 	private:
-		FILE*	m_pHandle;	// File handle
-		bool	m_bBinary;	// Writing in binary format?
-
 		// Constructor
 		File();
 };
