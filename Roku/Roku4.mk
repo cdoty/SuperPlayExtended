@@ -1,5 +1,5 @@
 # Copyright 2021 Roku, Inc.  All rights reserved.
-PATH_IDK = $(ROKU_INSTALL)/platforms/Roku4
+PATH_IDK = $(ROKU_DIR)/platforms/Roku4
 PATH_LIB = $(PATH_IDK)/lib
 PATH_USR = $(PATH_IDK)/usr
 PATH_TOOLCHAIN = $(PATH_IDK)/toolchain

@@ -2,7 +2,7 @@
 
 # First define directory where rules.mk and Roku4.mk live.
 ROKU = Roku
-ROKU_INSTALL = /home/cdoty/Roku
+ROKU_DIR = /home/cdoty/Roku
 
 # Include platform default defines for toolchain, CFLAGS, LDFLAGS, etc.
 include $(ROKU)/Roku4.mk
