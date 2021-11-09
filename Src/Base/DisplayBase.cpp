@@ -167,7 +167,7 @@ bool DisplayBase::createRenderTarget(int _iWidth, int _iHeight, GLint _iFormat)
 
 	if (error != GL_NO_ERROR)
 	{
-		Log::instance()->logError("Unable to create frame buffer %d", error);
+		Log::instance()->logError("Unable to create frame buffer %04X", error);
 
 		return	false;
 	}
@@ -179,7 +179,7 @@ bool DisplayBase::createRenderTarget(int _iWidth, int _iHeight, GLint _iFormat)
 
 	if (error != GL_NO_ERROR)
 	{
-		Log::instance()->logError("Unable to create render texture %d", error);
+		Log::instance()->logError("Unable to create render texture %04X", error);
 
 		return	false;
 	}
@@ -190,7 +190,7 @@ bool DisplayBase::createRenderTarget(int _iWidth, int _iHeight, GLint _iFormat)
 
 	if (error != GL_NO_ERROR)
 	{
-		Log::instance()->logError("Unable to bind render texture %d", error);
+		Log::instance()->logError("Unable to bind render texture %04X", error);
 
 		return	false;
 	}
@@ -208,7 +208,7 @@ bool DisplayBase::createRenderTarget(int _iWidth, int _iHeight, GLint _iFormat)
 
 	if (error != GL_NO_ERROR)
 	{
-		Log::instance()->logError("Unable to create render texture %d", error);
+		Log::instance()->logError("Unable to create render texture %04X", error);
 
 		return	false;
 	}
@@ -228,7 +228,7 @@ bool DisplayBase::createRenderTarget(int _iWidth, int _iHeight, GLint _iFormat)
 
 	if (error != GL_NO_ERROR)
 	{
-		Log::instance()->logError("Unable to bind frame buffer %d", error);
+		Log::instance()->logError("Unable to bind frame buffer %04X", error);
 
 		return	false;
 	}
@@ -239,7 +239,7 @@ bool DisplayBase::createRenderTarget(int _iWidth, int _iHeight, GLint _iFormat)
 
 	if (error != GL_NO_ERROR)
 	{
-		Log::instance()->logError("Unable to attach texture to framebuffer %d", error);
+		Log::instance()->logError("Unable to attach texture to framebuffer %04X", error);
 
 		return	false;
 	}
@@ -248,7 +248,7 @@ bool DisplayBase::createRenderTarget(int _iWidth, int _iHeight, GLint _iFormat)
 
 	if (error != GL_FRAMEBUFFER_COMPLETE)
 	{
-		Log::instance()->logError("Unable to setup frame buffer %d", error);
+		Log::instance()->logError("Unable to setup frame buffer %04X", error);
 
 		return	false;
 	}

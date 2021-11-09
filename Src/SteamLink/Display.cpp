@@ -4,6 +4,7 @@
 #include "Defines.h"
 #include "Display.h"
 #include "Log.h"
+#include "System.h"
 
 Display::Display()	:
 	super()
@@ -46,16 +47,20 @@ bool Display::initializeEGL()
 		return	false;
 	}
 
+	eglBindAPI(EGL_OPENGL_ES_API);
+
 	const EGLint configAttributes[]	=
 	{
-		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-		EGL_BUFFER_SIZE, 32,
-		EGL_ALPHA_SIZE, 8,
-		EGL_RED_SIZE, 8,
-		EGL_GREEN_SIZE, 8,
-		EGL_BLUE_SIZE, 8,
-		EGL_DEPTH_SIZE, 16,
-		EGL_STENCIL_SIZE, 0,
+		EGL_RENDERABLE_TYPE,	EGL_OPENGL_ES2_BIT,
+		EGL_SURFACE_TYPE,		EGL_WINDOW_BIT,
+		EGL_RED_SIZE,			8,
+		EGL_GREEN_SIZE,			8,
+		EGL_BLUE_SIZE,  		8,
+		EGL_ALPHA_SIZE, 		8,
+		EGL_DEPTH_SIZE,			16,
+		EGL_STENCIL_SIZE,		0,
+		EGL_SAMPLE_BUFFERS,		0,
+		EGL_SAMPLES,			0,
 		EGL_NONE
 	};
 
@@ -68,16 +73,16 @@ bool Display::initializeEGL()
 		return	false;
 	}
 
-	EGLint	visualID	= 0;
+	Window::Ptr	pWindow	= System::getWindow();
 
-	if (EGL_FALSE == eglGetConfigAttrib(m_eglDisplay, m_eglConfig, EGL_NATIVE_VISUAL_ID, &visualID))
+	if (nullptr == pWindow)
 	{
-		Log::instance()->logError("Unable to get EGL config attribute %04X", eglGetError());
+		Log::instance()->logError("Window is invalid");
 
 		return	false;
 	}
 
-	m_eglSurface	= eglCreateWindowSurface(m_eglDisplay, m_eglConfig, (EGLNativeWindowType)0, NULL);
+	m_eglSurface	= eglCreateWindowSurface(m_eglDisplay, m_eglConfig, pWindow->getHandle(), NULL);
 
 	if (EGL_NO_SURFACE == m_eglSurface)
 	{
@@ -89,7 +94,7 @@ bool Display::initializeEGL()
 	EGLint	contextAttributes[]	=
 	{
 		EGL_CONTEXT_CLIENT_VERSION, 2,
-		EGL_NONE, EGL_NONE
+		EGL_NONE
 	};
 
 	m_eglContext	= eglCreateContext(m_eglDisplay, m_eglConfig, EGL_NO_CONTEXT, contextAttributes);

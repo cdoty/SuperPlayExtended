@@ -1,7 +1,7 @@
 #pragma once
 
-#include <mutex>
-#include <roku/RokuInput.h>
+#include <EGL/egl.h>
+#include <SDL2/SDL.h>
 
 #include "Macros.h"
 #include "WindowBase.h"
@@ -12,16 +12,13 @@ class Window : public WindowBase
 		PTR(Window)
 		SUPER(WindowBase)
 
-		static int ms_iScreenWidth;		// Screen size
-		static int ms_iScreenHeight;
-
 		// Destructor
 		~Window();
 
 		// Create
 		static Ptr create();
 
-		// Initialize
+		// Initializeclea
 		bool initialize();
 
 		// Close
@@ -33,16 +30,17 @@ class Window : public WindowBase
 		// Quit
 		void quit() override;
 
+		// Get handle
+		EGLNativeWindowType getHandle() const {return m_windowType;}
+		
 	private:
-		RokuInputContext*	m_pInputContext;	// Roku input context
-		std::mutex			m_inputMutex;		// Input mutex
+		SDL_Window*				m_pSDLWindow;	// SDL window
+		EGLNativeDisplayType	m_displayType;	// Native display type
+		EGLNativeWindowType		m_windowType;	// Native window type
 
 		// Constructor
 		Window();
 
-		// Create input context
-		bool createInputContext();
-
-		// Release input context
-		void releaseInputContext();
+		// Create window
+		bool createWindow();
 };

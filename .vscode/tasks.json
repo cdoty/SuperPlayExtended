@@ -6,7 +6,7 @@
 		{
 			"label": "build",
 			"type": "shell",
-			"command": "make -f Makefile.steam",
+			"command": "make -f Makefile.roku",
 			"group": {
 				"kind": "build",
 				"isDefault": true
@@ -15,7 +15,7 @@
 		{
 			"label": "clean",
 			"type": "shell",
-			"command": "make -f Makefile.steam clean",
+			"command": "make -f Makefile.roku clean",
 			"group": {
 				"kind": "build",
 				"isDefault": false

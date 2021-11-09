@@ -25,12 +25,7 @@ bool File::open(const std::string& _strFilename, bool _bBinary)
 		close();
 	}
 	
-	std::string	strPath;
-
-	strPath	= "/pkg:/source/";
-	strPath	+= _strFilename;
-
-	m_pHandle	= fopen(strPath.c_str(), true == _bBinary ? "rb" : "rt");
+	m_pHandle	= fopen(_strFilename.c_str(), true == _bBinary ? "rb" : "rt");
 	
 	if (NULL == m_pHandle)
 	{

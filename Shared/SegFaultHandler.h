@@ -10,8 +10,9 @@ typedef void (*SignalHandlerPointer)(int);
 static void signalHandler(int _signal)
 {
 	Log::instance()->logError("Caught exception %d", _signal);
-
 	Log::reset();
+
+	exit(0);
 }
 
 static SignalHandlerPointer	previousHandler;

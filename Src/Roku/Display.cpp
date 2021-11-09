@@ -46,6 +46,8 @@ bool Display::initializeEGL()
 		return	false;
 	}
 
+	eglBindAPI(EGL_OPENGL_ES_API);
+
 	const EGLint configAttributes[]	=
 	{
 		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
@@ -68,6 +70,7 @@ bool Display::initializeEGL()
 		return	false;
 	}
 
+#if 0
 	EGLint	visualID	= 0;
 
 	if (EGL_FALSE == eglGetConfigAttrib(m_eglDisplay, m_eglConfig, EGL_NATIVE_VISUAL_ID, &visualID))
@@ -76,6 +79,7 @@ bool Display::initializeEGL()
 
 		return	false;
 	}
+#endif
 
 	m_eglSurface	= eglCreateWindowSurface(m_eglDisplay, m_eglConfig, (EGLNativeWindowType)0, NULL);
 
@@ -89,7 +93,7 @@ bool Display::initializeEGL()
 	EGLint	contextAttributes[]	=
 	{
 		EGL_CONTEXT_CLIENT_VERSION, 2,
-		EGL_NONE, EGL_NONE
+		EGL_NONE
 	};
 
 	m_eglContext	= eglCreateContext(m_eglDisplay, m_eglConfig, EGL_NO_CONTEXT, contextAttributes);

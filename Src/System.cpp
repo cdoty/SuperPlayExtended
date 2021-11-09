@@ -70,6 +70,8 @@ void System::run()
 			if (true == ms_bExit)
 			{
 				ms_pWindow->quit();
+
+				break;
 			}
 
 			else

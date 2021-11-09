@@ -1,33 +1,33 @@
-STEAMLINK = Steamlink
-STEAMLINK_DIR = /home/cdoty/steamlink-sdk
+PLATFORM = SteamLink
+PLATFORM_DIR = /home/cdoty/steamlink-sdk
 HOST_DIR = /mnt/e/Shared
 
-include $(STEAMLINK)/Steamlink.mk
+include $(PLATFORM)/$(PLATFORM).mk
 
 # Name of executable.
 BINARY = SuperPlay
 
 # Resource path, for icons and splash screens.
-RESOURCE_PATH	= Resources/Steamlink
+RESOURCE_PATH	= Resources/$(PLATFORM)
 
 # Define source files
 SRC	= $(wildcard Src/*.cpp)
 SRC	+= $(wildcard Src/Base/*.cpp)
-SRC	+= $(wildcard Src/Steamlink/*.cpp)
+SRC	+= $(wildcard Src/$(PLATFORM)/*.cpp)
 SRC	+= $(wildcard Shared/*.cpp)
 SRC	+= $(wildcard Shared/Base/*.cpp)
-SRC	+= $(wildcard Shared/Steamlink/*.cpp)
+SRC	+= $(wildcard Shared/$(PLATFORM)/*.cpp)
 SRC	+= $(wildcard Shared/Libraries/STB/*.cpp)
 SRC	+= $(wildcard Shared/Libraries/vmath/*.cpp)
 
 # Define include paths
-INCLUDES = -ISrc -ISrc/Base -ISrc/Steamlink -IShared -IShared/Base -IShared/Steamlink -IShared/Libraries
+INCLUDES = -ISrc -ISrc/Base -ISrc/$(PLATFORM) -IShared -IShared/Base -IShared/$(PLATFORM) -IShared/Libraries
 
 # Define objects
 OBJECTS	= $(SRC:.cpp=.o)
 
-LIBRARIES += -lEGL -lGLESv2 -lz
+LIBRARIES += -lEGL -lGLESv2 -lz -lSDL2
 
-PACKAGE = ./$(BINARY).tgz
+PACKAGE = $(BINARY).tgz
 
-include $(STEAMLINK)/rules.mk
+include $(PLATFORM)/rules.mk
