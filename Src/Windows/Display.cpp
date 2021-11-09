@@ -47,10 +47,11 @@ bool Display::initializeEGL()
 		return	false;
 	}
 
+	eglBindAPI(EGL_OPENGL_ES_API);
+
 	const EGLint configAttributes[]	=
 	{
-		EGL_SURFACE_TYPE,
-		EGL_WINDOW_BIT,
+		EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
 		EGL_BLUE_SIZE, 8,
 		EGL_GREEN_SIZE, 8,
 		EGL_RED_SIZE, 8,
@@ -63,15 +64,6 @@ bool Display::initializeEGL()
 	if (EGL_FALSE == eglChooseConfig(m_eglDisplay, configAttributes, &m_eglConfig, 1, &configCount))
 	{
 		Log::instance()->logError("Unable to choose EGL config %04X", eglGetError());
-
-		return	false;
-	}
-
-	EGLint	visualID	= 0;
-
-	if (EGL_FALSE == eglGetConfigAttrib(m_eglDisplay, m_eglConfig, EGL_NATIVE_VISUAL_ID, &visualID))
-	{
-		Log::instance()->logError("Unable to get EGL config attribute %04X", eglGetError());
 
 		return	false;
 	}
@@ -104,7 +96,7 @@ bool Display::initializeEGL()
 	EGLint	contextAttributes[]	=
 	{
 		EGL_CONTEXT_CLIENT_VERSION, 2,
-		EGL_NONE, EGL_NONE
+		EGL_NONE
 	};
 
 	m_eglContext	= eglCreateContext(m_eglDisplay, m_eglConfig, EGL_NO_CONTEXT, contextAttributes);
