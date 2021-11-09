@@ -3,18 +3,18 @@ PATH_MANIFEST = $(PLATFORM)/assets/manifest
 PATH_ASSETS = $(PLATFORM)/assets
 PACKAGE_DIR	= $(PLATFORM)/package
 PATH_PACKAGE = $(PACKAGE_DIR)/$(BINARY)
+LD_LIBRARY_PATH = $(PATH_TOOLCHAIN)/lib
 
 ASSETS := $(wildcard $(PATH_ASSETS)/*)
 DEPENDS := $(OBJECTS:%.o=%.d)
 
-.PHONY: env-check all clean
+.PHONY: .EXPORT_ALL_VARIABLES env-check all clean
 all: env-check $(PACKAGE)
 clean:
 	rm -f $(PACKAGE)
 	rm -f $(OBJECTS) $(DEPENDS)
 	rm -rf $(PATH_PACKAGE)
 env-check:
-	export LD_LIBRARY_PATH="$(PATH_TOOLCHAIN)/lib"
 ifeq (, $(wildcard $(CXX)))
 	$(error CXX is not set, did you forget to include platform make file?)
 endif
