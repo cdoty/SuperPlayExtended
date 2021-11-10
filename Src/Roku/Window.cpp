@@ -102,6 +102,11 @@ bool Window::update()
 
 								break;
 
+							case ROKU_INPUT_BUTTON_FWD:
+							case ROKU_INPUT_BUTTON_A:
+								key	= InputButton1;
+
+								break;
 							case ROKU_INPUT_BUTTON_PLAY:
 							case ROKU_INPUT_BUTTON_B:
 								key	= InputButton2;
@@ -109,14 +114,14 @@ bool Window::update()
 								break;
 
 							case ROKU_INPUT_BUTTON_RWD:
-							ROKU_INPUT_BUTTON_SELECT:
+							case ROKU_INPUT_BUTTON_SELECT:
 								key	= InputButtonStart;
 
 								break;
 
-							case ROKU_INPUT_BUTTON_FWD:
-							case ROKU_INPUT_BUTTON_A:
-								key	= InputButton1;
+							case ROKU_INPUT_BUTTON_BACK:
+							case ROKU_INPUT_BUTTON_EXIT:
+								key	= InputButtonExit;
 
 								break;
 						}
