@@ -101,6 +101,11 @@ bool Game::keyDown(Inputs _key)
 			m_renderParams.fHeight	= 32.0f;
 
 			break;
+
+		case InputButtonExit:
+			System::setExit(true);
+
+			break;
 	}
 
 	return	true;

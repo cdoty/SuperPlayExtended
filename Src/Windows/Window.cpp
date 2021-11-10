@@ -6,6 +6,7 @@
 #include "CommandLineFlags.h"
 #include "Defines.h"
 #include "Functions.h"
+#include "KeyDefines.h"
 #include "Log.h"
 #include "System.h"
 #include "Window.h"
@@ -166,15 +167,109 @@ LRESULT CALLBACK Window::messageProc(HWND _hWnd, UINT _uMsg, WPARAM _wParam, LPA
 			break;
 
 		case WM_KEYDOWN:
-			System::keyDown(_wParam);
+		{
+			Inputs	key	= InputNone;
+
+			switch (_wParam)
+			{
+				case VK_LEFT:
+					key	= InputLeft;
+
+					break;
+
+				case VK_RIGHT:
+					key	= InputRight;
+
+					break;
+
+				case VK_UP:
+					key	= InputUp;
+
+					break;
+
+				case VK_DOWN:
+					key	= InputDown;
+
+					break;
+
+				case 'Z':
+					key	= InputButton1;
+
+					break;
+
+				case 'X':
+					key	= InputButton2;
+
+					break;
+
+				case VK_RETURN:
+					key	= InputButtonStart;
+
+					break;
+			
+				case VK_ESCAPE:
+					key	= InputButtonExit;
+
+					break;
+			}
+
+			System::keyDown(key);
 
 			break;
-			
+		}
+		
 		case WM_KEYUP:
-			System::keyUp(_wParam);
+		{
+			Inputs	key	= InputNone;
+
+			switch (_wParam)
+			{
+				case VK_LEFT:
+					key	= InputLeft;
+
+					break;
+
+				case VK_RIGHT:
+					key	= InputRight;
+
+					break;
+
+				case VK_UP:
+					key	= InputUp;
+
+					break;
+
+				case VK_DOWN:
+					key	= InputDown;
+
+					break;
+
+				case 'Z':
+					key	= InputButton1;
+
+					break;
+
+				case 'X':
+					key	= InputButton2;
+
+					break;
+
+				case VK_RETURN:
+					key	= InputButtonStart;
+
+					break;
+			
+				case VK_ESCAPE:
+					key	= InputButtonExit;
+
+					break;
+			}
+
+			System::keyUp(key);
 
 			break;
-			
+		}
+		
 		case WM_MOUSEMOVE:
 			System::mouseMove(GET_X_LPARAM(_lParam), GET_Y_LPARAM(_lParam));
 

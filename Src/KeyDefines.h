@@ -10,4 +10,5 @@ enum Inputs
 	InputButton1		= 0x10,
 	InputButton2		= 0x20,
 	InputButtonStart	= 0x40,
+	InputButtonExit		= 0x80
 };
