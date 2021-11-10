@@ -20,7 +20,7 @@ COMMON_FLAGS = -mcpu=cortex-a9 -mthumb \
 	-I$(PATH_SDK)/include -I$(PATH_USR)/include $(INCLUDES) -DROKU
 
 CFLAGS = -std=c99 $(COMMON_FLAGS)
-CXXFLAGS = -std=c++14 -fvisibility-inlines-hidden $(COMMON_FLAGS)
+CXXFLAGS = -std=c++11 -fvisibility-inlines-hidden $(COMMON_FLAGS)
 
 PATH_LIBS = \
 	-L $(PATH_LIB) -L$(PATH_USR)/lib

@@ -65,107 +65,120 @@ bool Window::update()
 
 			while (1 == RokuInputContext_getEvent(m_pInputContext, &pEvent))
 			{
-				switch (RokuInputEvent_getType(pEvent))
+				if (NULL == pEvent)
+				{
+					break;
+				}
+
+				int32_t	iEventType	= RokuInputEvent_getType(pEvent);
+
+				switch (iEventType)
 				{
 					case ROKU_INPUT_EVENT_TYPE_BUTTON_RELEASED:
 					{
 						std::lock_guard<std::mutex>	lock(m_inputMutex);
 
-						int	iKey	= -1;
+						Inputs	key	= InputNone;
 
 						switch (RokuInputEvent_getButton(pEvent))
 						{
-							case 0x01:
-								iKey	= InputLeft;
+							case ROKU_INPUT_BUTTON_UP:
+								key	= InputLeft;
 
 								break;
 
-							case 0x02:
-								iKey	= InputRight;
+							case ROKU_INPUT_BUTTON_DOWN:
+								key	= InputRight;
 
 								break;
 
-							case 0x04:
-								iKey	= InputDown;
+							case ROKU_INPUT_BUTTON_LEFT:
+								key	= InputDown;
 
 								break;
 
-							case 0x08:
-								iKey	= InputUp;
+							case ROKU_INPUT_BUTTON_RIGHT:
+								key	= InputUp;
 
 								break;
 
-							case 0x20:
-								iKey	= InputButton2;
+							case ROKU_INPUT_BUTTON_PLAY:
+							case ROKU_INPUT_BUTTON_B:
+								key	= InputButton2;
 
 								break;
 
-							case 0x40:
-								iKey	= InputButton3;
+							case ROKU_INPUT_BUTTON_RWD:
+							ROKU_INPUT_BUTTON_SELECT:
+								key	= InputButtonStart;
 
 								break;
 
-							case 0x80:
-								iKey	= InputButton1;
+							case ROKU_INPUT_BUTTON_FWD:
+							case ROKU_INPUT_BUTTON_A:
+								key	= InputButton1;
 
 								break;
 						}
 
-						if (iKey != -1)
+						if (key != InputNone)
 						{
-							System::keyUp(iKey);
+							System::keyUp(key);
 						}
-			
+
 						break;
 					}
 				
 					case ROKU_INPUT_EVENT_TYPE_BUTTON_PRESSED:
 					{
 						std::lock_guard<std::mutex>	lock(m_inputMutex);
-
-						int	iKey	= -1;
+				
+						Inputs	key	= InputNone;
 
 						switch (RokuInputEvent_getButton(pEvent))
 						{
-							case 0x01:
-								iKey	= InputLeft;
+							case ROKU_INPUT_BUTTON_UP:
+								key	= InputLeft;
 
 								break;
 
-							case 0x02:
-								iKey	= InputRight;
+							case ROKU_INPUT_BUTTON_DOWN:
+								key	= InputRight;
 
 								break;
 
-							case 0x04:
-								iKey	= InputDown;
+							case ROKU_INPUT_BUTTON_LEFT:
+								key	= InputDown;
 
 								break;
 
-							case 0x08:
-								iKey	= InputUp;
+							case ROKU_INPUT_BUTTON_RIGHT:
+								key	= InputUp;
 
 								break;
 
-							case 0x20:
-								iKey	= InputButton2;
+							case ROKU_INPUT_BUTTON_PLAY:
+							case ROKU_INPUT_BUTTON_B:
+								key	= InputButton2;
 
 								break;
 
-							case 0x40:
-								iKey	= InputButton3;
+							case ROKU_INPUT_BUTTON_RWD:
+							case ROKU_INPUT_BUTTON_SELECT:
+								key	= InputButtonStart;
 
 								break;
 
-							case 0x80:
-								iKey	= InputButton1;
+							case ROKU_INPUT_BUTTON_FWD:
+							case ROKU_INPUT_BUTTON_A:
+								key	= InputButton1;
 
 								break;
 						}
-
-						if (iKey != -1)
+				
+						if (key != InputNone)
 						{
-							System::keyDown(iKey);
+							System::keyDown(key);
 						}
 			
 						break;
@@ -206,12 +219,14 @@ bool Window::update()
 					default:
 						break;
 				}
-			}
 
-			RokuInputEvent_release(pEvent);
+				RokuInputEvent_release(pEvent);
+			}
 		}
 	}
 
+	Log::instance()->logError("Function exit");
+				
 	return	true;
 }
 

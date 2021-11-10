@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 #include "Game.h"
-#include "KeyDefines.h"
 #include "Log.h"
 #include "System.h"
 
@@ -59,6 +58,81 @@ void Game::render(float _fElapsed)
 			m_pSpriteBatch->endBatch();
 		}
 	}
+}
+
+bool Game::keyDown(Inputs _key)
+{
+	switch (_key)
+	{
+		case InputUp:
+			m_renderParams.fY	-= 1.0f;
+
+			break;
+
+		case InputDown:
+			m_renderParams.fY	+= 1.0f;
+
+			break;
+			
+		case InputLeft:
+			m_renderParams.fX	-= 1.0f;
+
+			break;
+			
+		case InputRight:
+			m_renderParams.fX	+= 1.0f;
+
+			break;
+			
+		case InputButton1:
+			m_renderParams.fWidth	*= 0.5f;
+			m_renderParams.fHeight	*= 0.5f;
+			
+			break;
+			
+		case InputButton2:
+			m_renderParams.fWidth	*= 2.0f;
+			m_renderParams.fHeight	*= 2.0f;
+			
+			break;
+			
+		case InputButtonStart:
+			m_renderParams.fWidth	= 16.0f;
+			m_renderParams.fHeight	= 32.0f;
+
+			break;
+	}
+
+	return	true;
+}
+
+bool Game::keyUp(Inputs _key)
+{
+	switch (_key)
+	{
+		case InputUp:
+			break;
+
+		case InputDown:
+			break;
+			
+		case InputLeft:
+			break;
+			
+		case InputRight:
+			break;
+			
+		case InputButton1:
+			break;
+			
+		case InputButton2:
+			break;
+			
+		case InputButtonStart:
+			break;
+	}
+
+	return	true;
 }
 
 bool Game::createSpriteBatch()

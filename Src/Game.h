@@ -1,5 +1,6 @@
 #pragma once
 
+#include "KeyDefines.h"
 #include "Macros.h"
 #include "SpriteBatch.h"
 
@@ -25,6 +26,12 @@ class Game
 
 		// Render
 		void render(float _fElapsed);
+
+		// Key down
+		bool keyDown(Inputs _key);
+
+		// Key up
+		bool keyUp(Inputs _key);
 
 	private:
 		SpriteBatch::Ptr	m_pSpriteBatch;	// Sprite batch

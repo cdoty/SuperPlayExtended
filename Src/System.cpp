@@ -131,13 +131,23 @@ bool System::mouseHWheel(int _x, int _y, int _wheelRotation)
 	return	false;
 }
 
-bool System::keyDown(int _key)
+bool System::keyDown(Inputs _key)
 {
+	if (ms_pGame != nullptr)
+	{
+		ms_pGame->keyDown(_key);
+	}
+
 	return	false;
 }
 
-bool System::keyUp(int _key)
+bool System::keyUp(Inputs _key)
 {
+	if (ms_pGame != nullptr)
+	{
+		ms_pGame->keyUp(_key);
+	}
+
 	return	false;
 }
 

@@ -2,6 +2,7 @@
 
 #include "Display.h"
 #include "Game.h"
+#include "KeyDefines.h"
 #include "ResourceManager.h"
 #include "Window.h"
 
@@ -36,10 +37,10 @@ class System
 		static bool mouseHWheel(int _x, int _y, int _wheelRotation);
 
 		// Key down
-		static bool keyDown(int _key);
+		static bool keyDown(Inputs _key);
 
 		// Key up
-		static bool keyUp(int _key);
+		static bool keyUp(Inputs _key);
 
 		// Processed char
 		static bool processedChar(uint32_t _char);
