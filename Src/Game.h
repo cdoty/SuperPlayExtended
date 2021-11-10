@@ -34,9 +34,14 @@ class Game
 		bool keyUp(Inputs _key);
 
 	private:
-		SpriteBatch::Ptr	m_pSpriteBatch;	// Sprite batch
-		RenderParams		m_renderParams;	// Render params
-		int					m_iSpriteImage;	// Sprite image
+		SpriteBatch::Ptr	m_pSpriteBatch;		// Sprite batch
+		RenderParams		m_renderParams;		// Render params
+		int					m_iSpriteImage;		// Sprite image
+		uint32_t			m_controllerStatus;	// Controller status
+		uint32_t			m_lastStatus;		// Last controller status
+
+		// Update inputc
+		void updateInput(float _fElapsed);
 
 		// Create sprite batch
 		bool createSpriteBatch();

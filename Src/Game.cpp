@@ -5,8 +5,12 @@
 #include "Log.h"
 #include "System.h"
 
+static const float	gsc_fMoveSpeed	= 32.0f;	// Move 16 pixels per second
+
 Game::Game()	:
-	m_iSpriteImage(-1)
+	m_iSpriteImage(-1),
+	m_controllerStatus(0),
+	m_lastStatus(0)
 {
 }
 
@@ -49,6 +53,8 @@ void Game::close()
 
 void Game::render(float _fElapsed)
 {
+	updateInput(_fElapsed);
+
 	if (m_pSpriteBatch != nullptr)
 	{
 		if (m_renderParams.iTextureHash != 0)
@@ -62,82 +68,64 @@ void Game::render(float _fElapsed)
 
 bool Game::keyDown(Inputs _key)
 {
-	switch (_key)
-	{
-		case InputUp:
-			m_renderParams.fY	-= 1.0f;
-
-			break;
-
-		case InputDown:
-			m_renderParams.fY	+= 1.0f;
-
-			break;
-			
-		case InputLeft:
-			m_renderParams.fX	-= 1.0f;
-
-			break;
-			
-		case InputRight:
-			m_renderParams.fX	+= 1.0f;
-
-			break;
-			
-		case InputButton1:
-			m_renderParams.fWidth	*= 0.5f;
-			m_renderParams.fHeight	*= 0.5f;
-			
-			break;
-			
-		case InputButton2:
-			m_renderParams.fWidth	*= 2.0f;
-			m_renderParams.fHeight	*= 2.0f;
-			
-			break;
-			
-		case InputButtonStart:
-			m_renderParams.fWidth	= 16.0f;
-			m_renderParams.fHeight	= 32.0f;
-
-			break;
-
-		case InputButtonExit:
-			System::setExit(true);
-
-			break;
-	}
+	m_controllerStatus	|= _key;
 
 	return	true;
 }
 
 bool Game::keyUp(Inputs _key)
 {
-	switch (_key)
-	{
-		case InputUp:
-			break;
-
-		case InputDown:
-			break;
-			
-		case InputLeft:
-			break;
-			
-		case InputRight:
-			break;
-			
-		case InputButton1:
-			break;
-			
-		case InputButton2:
-			break;
-			
-		case InputButtonStart:
-			break;
-	}
+	m_controllerStatus	&= ~_key;
 
 	return	true;
+}
+
+void Game::updateInput(float _fElapsed)
+{
+	if (m_controllerStatus & InputUp)
+	{
+		m_renderParams.fY	-= gsc_fMoveSpeed * _fElapsed;
+	}
+
+	else if (m_controllerStatus & InputDown)
+	{
+		m_renderParams.fY	+= gsc_fMoveSpeed * _fElapsed;
+	}
+
+	if (m_controllerStatus & InputLeft)
+	{
+		m_renderParams.fX	-= gsc_fMoveSpeed * _fElapsed;
+	}
+
+	else if (m_controllerStatus & InputRight)
+	{
+		m_renderParams.fX	+= gsc_fMoveSpeed * _fElapsed;
+	}
+
+	if (0 == (m_lastStatus & InputButton1) && m_controllerStatus & InputButton1)
+	{
+		m_renderParams.fWidth	*= 0.5f;
+		m_renderParams.fHeight	*= 0.5f;
+	}
+			
+	if (0 == (m_lastStatus & InputButton2) && m_controllerStatus & InputButton2)
+	{
+		m_renderParams.fWidth	*= 2.0f;
+		m_renderParams.fHeight	*= 2.0f;
+	}			
+			
+	if (0 == (m_lastStatus & InputButtonStart) && m_controllerStatus & InputButtonStart)
+	{
+		m_renderParams.fWidth	= 16.0f;
+		m_renderParams.fHeight	= 32.0f;
+	}
+
+	if (0 == (m_lastStatus & InputButtonExit) && m_controllerStatus & InputButtonExit)
+	{
+		System::setExit(true);
+	}
+
+	m_lastStatus	= m_controllerStatus;
 }
 
 bool Game::createSpriteBatch()
