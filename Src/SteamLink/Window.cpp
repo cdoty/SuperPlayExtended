@@ -9,10 +9,13 @@
 #include "System.h"
 #include "Window.h"
 
+static const int gsc_iDeadZone	= 64;	// Controller dead zone
+
 Window::Window()	:
 	m_pSDLWindow(NULL),
 	m_displayType(0),
-	m_windowType(0)
+	m_windowType(0),
+	m_controllerStatus(0)
 {
 }
 
@@ -71,35 +74,244 @@ bool Window::update()
 		switch (event.type)
 		{
 			case SDL_CONTROLLERDEVICEADDED:
-            	SDL_GameControllerOpen(event.cdevice.which);
+            	SDL_GameControllerOpen(event.jdevice.which);
             	
 				break;
 
 			case SDL_QUIT:
 				System::setExit(true);
 	
-				Log::instance()->logError("Exiting");
-				Log::reset();
-
-				break;
-
 				break;
 
 			case SDL_CONTROLLERBUTTONDOWN:
-				System::setExit(true);
-	
-				Log::instance()->logError("Exiting");
-				Log::reset();
+			{
+				Inputs	key	= InputNone;
+				
+				switch (event.cbutton.button)
+				{
+					case SDL_CONTROLLER_BUTTON_DPAD_UP:
+						key	= InputUp;
+
+						break;
+
+					case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
+						key	= InputDown;
+						
+						break;
+						
+					case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
+						key	= InputLeft;
+						
+						break;
+						
+					case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
+						key	= InputRight;
+						
+						break;
+						
+					case SDL_CONTROLLER_BUTTON_A:
+						key	= InputButton1;
+						
+						break;
+
+					case SDL_CONTROLLER_BUTTON_B:
+						key	= InputButton2;
+						
+						break;
+
+					case SDL_CONTROLLER_BUTTON_START:
+						key	= InputButtonStart;
+						
+						break;
+
+					case SDL_CONTROLLER_BUTTON_BACK:
+						key	= InputButtonExit;
+						
+						break;
+				
+					default:
+						break;
+				}
+				
+				if (key != InputNone)
+				{
+					System::keyDown(key);
+				}
 
 				break;
+			}
+
+			case SDL_CONTROLLERBUTTONUP:
+			{
+				Inputs	key	= InputNone;
+				
+				switch (event.cbutton.button)
+				{
+					case SDL_CONTROLLER_BUTTON_DPAD_UP:
+						key	= InputUp;
+
+						break;
+
+					case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
+						key	= InputDown;
+						
+						break;
+						
+					case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
+						key	= InputLeft;
+						
+						break;
+						
+					case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
+						key	= InputRight;
+						
+						break;
+						
+					case SDL_CONTROLLER_BUTTON_A:
+						key	= InputButton1;
+						
+						break;
+
+					case SDL_CONTROLLER_BUTTON_B:
+						key	= InputButton2;
+						
+						break;
+
+					case SDL_CONTROLLER_BUTTON_START:
+						key	= InputButtonStart;
+						
+						break;
+
+					case SDL_CONTROLLER_BUTTON_BACK:
+						key	= InputButtonExit;
+						
+						break;
+				
+					default:
+						break;
+				}
+				
+				if (key != InputNone)
+				{
+					System::keyUp(key);
+				}
+
+				break;
+			}
+
+			case SDL_CONTROLLERAXISMOTION:
+			{
+				int	iValue	= event.caxis.value;
+
+				switch (event.caxis.axis)
+				{
+					case SDL_CONTROLLER_AXIS_LEFTX:
+						if (iValue < -gsc_iDeadZone)
+						{
+							if (m_controllerStatus & InputRight)
+							{
+								m_controllerStatus	&= ~ InputRight;
+
+								System::keyUp(InputRight);
+							}
+
+							m_controllerStatus	|= InputLeft;
+
+							System::keyDown(InputLeft);
+						}
+
+						else if (iValue > gsc_iDeadZone)
+						{
+							if (m_controllerStatus & InputLeft)
+							{
+								m_controllerStatus	&= ~ InputLeft;
+
+								System::keyUp(InputLeft);
+							}
+
+							m_controllerStatus	|= InputRight;
+
+							System::keyDown(InputRight);
+						}
+
+						else
+						{
+							if (m_controllerStatus & InputLeft)
+							{
+								m_controllerStatus	&= ~ InputLeft;
+
+								System::keyUp(InputLeft);
+							}
+
+							if (m_controllerStatus & InputRight)
+							{
+								m_controllerStatus	&= ~ InputRight;
+
+								System::keyUp(InputRight);
+							}
+						}
+						
+						break;
+
+					case SDL_CONTROLLER_AXIS_LEFTY:
+						if (iValue < -gsc_iDeadZone)
+						{
+							if (m_controllerStatus & InputDown)
+							{
+								m_controllerStatus	&= ~ InputDown;
+
+								System::keyUp(InputDown);
+							}
+
+							m_controllerStatus	|= InputUp;
+
+							System::keyDown(InputUp);
+						}
+
+						else if (iValue > gsc_iDeadZone)
+						{
+							if (m_controllerStatus & InputUp)
+							{
+								m_controllerStatus	&= ~ InputUp;
+
+								System::keyUp(InputUp);
+							}
+
+							m_controllerStatus	|= InputDown;
+
+							System::keyDown(InputDown);
+						}
+
+						else
+						{
+							if (m_controllerStatus & InputUp)
+							{
+								m_controllerStatus	&= ~ InputUp;
+
+								System::keyUp(InputUp);
+							}
+
+							if (m_controllerStatus & InputDown)
+							{
+								m_controllerStatus	&= ~ InputDown;
+
+								System::keyUp(InputDown);
+							}
+						}
+
+						break;
+				
+					default:
+						break;
+				}
+
+				break;
+			}
 
 			case SDL_WINDOWEVENT:
 				switch (event.window.event)
 				{
 					case SDL_WINDOWEVENT_CLOSE:
-						Log::instance()->logError("Window event close");
-						Log::reset();
-		
 						break;
 		
 					default:

@@ -34,9 +34,10 @@ class Window : public WindowBase
 		EGLNativeWindowType getHandle() const {return m_windowType;}
 		
 	private:
-		SDL_Window*				m_pSDLWindow;	// SDL window
-		EGLNativeDisplayType	m_displayType;	// Native display type
-		EGLNativeWindowType		m_windowType;	// Native window type
+		SDL_Window*				m_pSDLWindow;		// SDL window
+		EGLNativeDisplayType	m_displayType;		// Native display type
+		EGLNativeWindowType		m_windowType;		// Native window type
+		khronos_uint32_t		m_controllerStatus;	// Last controller value
 
 		// Constructor
 		Window();
