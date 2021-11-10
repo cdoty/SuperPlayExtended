@@ -37,7 +37,8 @@ class Window : public WindowBase
 		SDL_Window*				m_pSDLWindow;		// SDL window
 		EGLNativeDisplayType	m_displayType;		// Native display type
 		EGLNativeWindowType		m_windowType;		// Native window type
-		khronos_uint32_t		m_controllerStatus;	// Last controller value
+		int						m_iXDirection;		// X direction
+		int						m_iYDirection;		// X direction
 
 		// Constructor
 		Window();

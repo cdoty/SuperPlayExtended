@@ -9,13 +9,14 @@
 #include "System.h"
 #include "Window.h"
 
-static const int gsc_iDeadZone	= 64;	// Controller dead zone
+static const int gsc_iDeadZone	= 4096;	// Controller dead zone
 
 Window::Window()	:
 	m_pSDLWindow(NULL),
 	m_displayType(0),
 	m_windowType(0),
-	m_controllerStatus(0)
+	m_iXDirection(0),
+	m_iYDirection(0)
 {
 }
 
@@ -74,7 +75,7 @@ bool Window::update()
 		switch (event.type)
 		{
 			case SDL_CONTROLLERDEVICEADDED:
-            	SDL_GameControllerOpen(event.jdevice.which);
+            	SDL_GameControllerOpen(event.cdevice.which);
             	
 				break;
 
@@ -85,57 +86,60 @@ bool Window::update()
 
 			case SDL_CONTROLLERBUTTONDOWN:
 			{
-				Inputs	key	= InputNone;
-				
-				switch (event.cbutton.button)
+				if (0 == event.cdevice.which)
 				{
-					case SDL_CONTROLLER_BUTTON_DPAD_UP:
-						key	= InputUp;
+					Inputs	key	= InputNone;
+					
+					switch (event.cbutton.button)
+					{
+						case SDL_CONTROLLER_BUTTON_DPAD_UP:
+							key	= InputUp;
 
-						break;
+							break;
 
-					case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
-						key	= InputDown;
-						
-						break;
-						
-					case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
-						key	= InputLeft;
-						
-						break;
-						
-					case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
-						key	= InputRight;
-						
-						break;
-						
-					case SDL_CONTROLLER_BUTTON_A:
-						key	= InputButton1;
-						
-						break;
+						case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
+							key	= InputDown;
+							
+							break;
+							
+						case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
+							key	= InputLeft;
+							
+							break;
+							
+						case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
+							key	= InputRight;
+							
+							break;
+							
+						case SDL_CONTROLLER_BUTTON_A:
+							key	= InputButton1;
+							
+							break;
 
-					case SDL_CONTROLLER_BUTTON_B:
-						key	= InputButton2;
-						
-						break;
+						case SDL_CONTROLLER_BUTTON_B:
+							key	= InputButton2;
+							
+							break;
 
-					case SDL_CONTROLLER_BUTTON_START:
-						key	= InputButtonStart;
-						
-						break;
+						case SDL_CONTROLLER_BUTTON_START:
+							key	= InputButtonStart;
+							
+							break;
 
-					case SDL_CONTROLLER_BUTTON_BACK:
-						key	= InputButtonExit;
-						
-						break;
-				
-					default:
-						break;
-				}
-				
-				if (key != InputNone)
-				{
-					System::keyDown(key);
+						case SDL_CONTROLLER_BUTTON_BACK:
+							key	= InputButtonExit;
+							
+							break;
+					
+						default:
+							break;
+					}
+					
+					if (key != InputNone)
+					{
+						System::keyDown(key);
+					}
 				}
 
 				break;
@@ -143,57 +147,60 @@ bool Window::update()
 
 			case SDL_CONTROLLERBUTTONUP:
 			{
-				Inputs	key	= InputNone;
-				
-				switch (event.cbutton.button)
+				if (0 == event.cdevice.which)
 				{
-					case SDL_CONTROLLER_BUTTON_DPAD_UP:
-						key	= InputUp;
+					Inputs	key	= InputNone;
+					
+					switch (event.cbutton.button)
+					{
+						case SDL_CONTROLLER_BUTTON_DPAD_UP:
+							key	= InputUp;
 
-						break;
+							break;
 
-					case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
-						key	= InputDown;
-						
-						break;
-						
-					case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
-						key	= InputLeft;
-						
-						break;
-						
-					case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
-						key	= InputRight;
-						
-						break;
-						
-					case SDL_CONTROLLER_BUTTON_A:
-						key	= InputButton1;
-						
-						break;
+						case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
+							key	= InputDown;
+							
+							break;
+							
+						case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
+							key	= InputLeft;
+							
+							break;
+							
+						case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
+							key	= InputRight;
+							
+							break;
+							
+						case SDL_CONTROLLER_BUTTON_A:
+							key	= InputButton1;
+							
+							break;
 
-					case SDL_CONTROLLER_BUTTON_B:
-						key	= InputButton2;
-						
-						break;
+						case SDL_CONTROLLER_BUTTON_B:
+							key	= InputButton2;
+							
+							break;
 
-					case SDL_CONTROLLER_BUTTON_START:
-						key	= InputButtonStart;
-						
-						break;
+						case SDL_CONTROLLER_BUTTON_START:
+							key	= InputButtonStart;
+							
+							break;
 
-					case SDL_CONTROLLER_BUTTON_BACK:
-						key	= InputButtonExit;
-						
-						break;
-				
-					default:
-						break;
-				}
-				
-				if (key != InputNone)
-				{
-					System::keyUp(key);
+						case SDL_CONTROLLER_BUTTON_BACK:
+							key	= InputButtonExit;
+							
+							break;
+					
+						default:
+							break;
+					}
+					
+					if (key != InputNone)
+					{
+						System::keyUp(key);
+					}
 				}
 
 				break;
@@ -201,110 +208,107 @@ bool Window::update()
 
 			case SDL_CONTROLLERAXISMOTION:
 			{
-				int	iValue	= event.caxis.value;
-
-				switch (event.caxis.axis)
+				if (0 == event.cdevice.which)
 				{
-					case SDL_CONTROLLER_AXIS_LEFTX:
-						if (iValue < -gsc_iDeadZone)
-						{
-							if (m_controllerStatus & InputRight)
-							{
-								m_controllerStatus	&= ~ InputRight;
+					int	iValue	= event.caxis.value;
 
-								System::keyUp(InputRight);
+					switch (event.caxis.axis)
+					{
+						case SDL_CONTROLLER_AXIS_LEFTX:
+						{
+							int	iNewDirection	= 0;
+
+							if (iValue < -gsc_iDeadZone)
+							{
+								iNewDirection	= -1;
 							}
 
-							m_controllerStatus	|= InputLeft;
+							else if (iValue > gsc_iDeadZone)
+							{
+								iNewDirection	= 1;
+							}
+							
+							if (m_iXDirection != iNewDirection && m_iXDirection != 0)
+							{
+								if (-1 == m_iXDirection)
+								{
+									System::keyUp(InputLeft);
+								}
 
-							System::keyDown(InputLeft);
+								else
+								{
+									System::keyUp(InputRight);
+								}
+							}
+
+							if (iNewDirection != 0)
+							{
+								if (-1 == iNewDirection)
+								{
+									System::keyDown(InputLeft);
+								}
+
+								else
+								{
+									System::keyDown(InputRight);
+								}
+							}
+
+							m_iXDirection	= iNewDirection;
+
+							break;
 						}
 
-						else if (iValue > gsc_iDeadZone)
+						case SDL_CONTROLLER_AXIS_LEFTY:
 						{
-							if (m_controllerStatus & InputLeft)
-							{
-								m_controllerStatus	&= ~ InputLeft;
+							int	iNewDirection	= 0;
 
-								System::keyUp(InputLeft);
+							if (iValue < -gsc_iDeadZone)
+							{
+								iNewDirection	= -1;
 							}
 
-							m_controllerStatus	|= InputRight;
+							else if (iValue > gsc_iDeadZone)
+							{
+								iNewDirection	= 1;
+							}
 
-							System::keyDown(InputRight);
+							if (m_iYDirection != iNewDirection && m_iYDirection != 0)
+							{
+								if (-1 == m_iYDirection)
+								{
+									System::keyUp(InputUp);
+								}
+
+								else
+								{
+									System::keyUp(InputDown);
+								}
+							}
+
+							if (iNewDirection != 0)
+							{
+								if (-1 == iNewDirection)
+								{
+									System::keyDown(InputUp);
+								}
+
+								else
+								{
+									System::keyDown(InputDown);
+								}
+							}
+
+							m_iYDirection	= iNewDirection;
+
+							break;
 						}
 
-						else
-						{
-							if (m_controllerStatus & InputLeft)
-							{
-								m_controllerStatus	&= ~ InputLeft;
-
-								System::keyUp(InputLeft);
-							}
-
-							if (m_controllerStatus & InputRight)
-							{
-								m_controllerStatus	&= ~ InputRight;
-
-								System::keyUp(InputRight);
-							}
-						}
-						
-						break;
-
-					case SDL_CONTROLLER_AXIS_LEFTY:
-						if (iValue < -gsc_iDeadZone)
-						{
-							if (m_controllerStatus & InputDown)
-							{
-								m_controllerStatus	&= ~ InputDown;
-
-								System::keyUp(InputDown);
-							}
-
-							m_controllerStatus	|= InputUp;
-
-							System::keyDown(InputUp);
-						}
-
-						else if (iValue > gsc_iDeadZone)
-						{
-							if (m_controllerStatus & InputUp)
-							{
-								m_controllerStatus	&= ~ InputUp;
-
-								System::keyUp(InputUp);
-							}
-
-							m_controllerStatus	|= InputDown;
-
-							System::keyDown(InputDown);
-						}
-
-						else
-						{
-							if (m_controllerStatus & InputUp)
-							{
-								m_controllerStatus	&= ~ InputUp;
-
-								System::keyUp(InputUp);
-							}
-
-							if (m_controllerStatus & InputDown)
-							{
-								m_controllerStatus	&= ~ InputDown;
-
-								System::keyUp(InputDown);
-							}
-						}
-
-						break;
-				
-					default:
-						break;
+						default:
+							break;
+					}
 				}
-
+				
 				break;
 			}
 

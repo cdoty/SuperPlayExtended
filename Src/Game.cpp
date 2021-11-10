@@ -82,26 +82,6 @@ bool Game::keyUp(Inputs _key)
 
 void Game::updateInput(float _fElapsed)
 {
-	if (m_controllerStatus & InputUp)
-	{
-		m_renderParams.fY	-= gsc_fMoveSpeed * _fElapsed;
-	}
-
-	else if (m_controllerStatus & InputDown)
-	{
-		m_renderParams.fY	+= gsc_fMoveSpeed * _fElapsed;
-	}
-
-	if (m_controllerStatus & InputLeft)
-	{
-		m_renderParams.fX	-= gsc_fMoveSpeed * _fElapsed;
-	}
-
-	else if (m_controllerStatus & InputRight)
-	{
-		m_renderParams.fX	+= gsc_fMoveSpeed * _fElapsed;
-	}
-
 	if (0 == (m_lastStatus & InputButton1) && m_controllerStatus & InputButton1)
 	{
 		m_renderParams.fWidth	*= 0.5f;
@@ -123,6 +103,28 @@ void Game::updateInput(float _fElapsed)
 	if (0 == (m_lastStatus & InputButtonExit) && m_controllerStatus & InputButtonExit)
 	{
 		System::setExit(true);
+	}
+
+	float	fMovementSpeed	= gsc_fMoveSpeed * (m_renderParams.fWidth / 16.0f);
+
+	if (m_controllerStatus & InputUp)
+	{
+		m_renderParams.fY	-= fMovementSpeed * _fElapsed;
+	}
+
+	else if (m_controllerStatus & InputDown)
+	{
+		m_renderParams.fY	+= fMovementSpeed * _fElapsed;
+	}
+
+	if (m_controllerStatus & InputLeft)
+	{
+		m_renderParams.fX	-= fMovementSpeed * _fElapsed;
+	}
+
+	else if (m_controllerStatus & InputRight)
+	{
+		m_renderParams.fX	+= fMovementSpeed * _fElapsed;
 	}
 
 	m_lastStatus	= m_controllerStatus;
