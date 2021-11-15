@@ -8,12 +8,6 @@ class ResourceManager
 	public:
 		PTR(ResourceManager)
 
-		struct StoredImage
-		{
-			Image::Ptr	pImage;	// Image
-			int			iHash;	// Name hash
-		};
-
 		// Destructor
 		~ResourceManager();
 
@@ -23,26 +17,30 @@ class ResourceManager
 		// Initialize
 		bool initialize();
 
-		// Load image
-		int loadImage(const std::string& _strFilename);
+		// Close
+		void close();
 
-		// Release image
-		void	releaseImage(int _iIndex);
+		// Create image
+		int createImage(const std::string& _strFilename);
 
 		// Get image
-		Image::Ptr getImage(int _iIndex) const;
+		Image::Ptr getImage(int _iHash) const;
+
+		// Remove image
+		void removeImage(int _iHash);
 
 	private:
-		std::vector<StoredImage>	m_vecImages;	// Images
+		struct ImageData
+		{
+			Image::Ptr	pImage;				// Image
+			int			iReferenceCount;	// Reference count
+		
+			ImageData() : iReferenceCount(0) {}
+		};
 
-		// Find image
-		int findImage(int _iHash) const;
+		typedef	std::unordered_map<int, ImageData> ImageMap;
 
-		// Add image
-		int addImage(StoredImage& _storedImage);
-
-		// Remove images
-		void removeImages();
+		ImageMap	m_mapImages;	// Images
 
 		// Constructor
 		ResourceManager();

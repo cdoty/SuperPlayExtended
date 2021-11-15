@@ -37,5 +37,5 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 
 	resetSegFaultHandler();
 
-	return	0;
+	return	iRetVal;
 }

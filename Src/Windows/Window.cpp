@@ -99,7 +99,7 @@ bool Window::initialize()
 		m_rctMonitor.right - m_rctMonitor.left, m_rctMonitor.bottom - m_rctMonitor.top, NULL, NULL, m_hInstance, this);
 #else
 	m_hWnd	= CreateWindowExA(WS_EX_TOOLWINDOW | WS_EX_TOPMOST, gsc_szAppName, gsc_szWindowTitle, WS_POPUP, m_rctWindow.left, m_rctWindow.top, 
-		m_rctMonitor.width, m_rctMonitor.height, NULL, NULL, m_hInstance, this);
+		m_rctMonitor.right - m_rctMonitor.left, m_rctMonitor.bottom - m_rctMonitor.top, NULL, NULL, m_hInstance, this);
 #endif
 	
 	if (NULL == m_hWnd)

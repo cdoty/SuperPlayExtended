@@ -111,16 +111,20 @@
     <ClInclude Include="Src\KeyDefines.h" />
     <ClInclude Include="Src\PixelShader.h" />
     <ClInclude Include="Src\Point.h" />
+    <ClInclude Include="Src\Program.h" />
     <ClInclude Include="Src\Rect.h" />
     <ClInclude Include="Src\RenderParams.h" />
     <ClInclude Include="Src\ResourceManager.h" />
+    <ClInclude Include="Src\Sprite.h" />
     <ClInclude Include="Src\SpriteBatch.h" />
     <ClInclude Include="Src\System.h" />
     <ClInclude Include="Src\Texture.h" />
+    <ClInclude Include="Src\TileMap.h" />
     <ClInclude Include="Src\VertexBuffer.h" />
     <ClInclude Include="Src\VertexShader.h" />
     <ClInclude Include="Src\Windows\CommandLine.h" />
     <ClInclude Include="Src\Windows\Display.h" />
+    <ClInclude Include="Src\Windows\PlatformDefines.h" />
     <ClInclude Include="Src\Windows\Window.h" />
   </ItemGroup>
   <ItemGroup>
@@ -134,10 +138,13 @@
     <ClCompile Include="Src\Game.cpp" />
     <ClCompile Include="Src\Image.cpp" />
     <ClCompile Include="Src\IndexBuffer.cpp" />
+    <ClCompile Include="Src\Program.cpp" />
     <ClCompile Include="Src\ResourceManager.cpp" />
+    <ClCompile Include="Src\Sprite.cpp" />
     <ClCompile Include="Src\SpriteBatch.cpp" />
     <ClCompile Include="Src\System.cpp" />
     <ClCompile Include="Src\Texture.cpp" />
+    <ClCompile Include="Src\TileMap.cpp" />
     <ClCompile Include="Src\VertexBuffer.cpp" />
     <ClCompile Include="Src\Windows\CommandLine.cpp" />
     <ClCompile Include="Src\Windows\Display.cpp" />

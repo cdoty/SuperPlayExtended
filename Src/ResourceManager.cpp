@@ -11,7 +11,7 @@ ResourceManager::ResourceManager()
 
 ResourceManager::~ResourceManager()
 {
-	removeImages();
+	close();
 }
 
 ResourceManager::Ptr ResourceManager::create()
@@ -31,90 +31,60 @@ bool ResourceManager::initialize()
 	return	true;
 }
 
-int ResourceManager::loadImage(const std::string& _strFilename)
+void ResourceManager::close()
+{
+}
+
+int ResourceManager::createImage(const std::string& _strFilename)
 {
 	int	iHash	= Functions::getHash(_strFilename);
 
-	int	iImageIndex	= findImage(iHash);
-
-	if (iImageIndex != -1)
+	if (m_mapImages.find(iHash) == m_mapImages.end())
 	{
-		return	iImageIndex;
-	}
+		Image::Ptr	pImage	= Image::create(_strFilename);
 
-	Image::Ptr	pImage	= Image::create(_strFilename);
-
-	if (nullptr == pImage)
-	{
-		return	-1;
-	}
-
-	StoredImage	storedImage;
-
-	storedImage.pImage	= pImage;
-	storedImage.iHash	= iHash;
-
-	iImageIndex	= addImage(storedImage);
-
-	return	iImageIndex;
-}
-
-void ResourceManager::releaseImage(int _iIndex)
-{
-	if (_iIndex >= 0 && _iIndex < (int)m_vecImages.size())
-	{
-		m_vecImages[_iIndex].iHash	= 0;
-		m_vecImages[_iIndex].pImage.reset();
-	}
-}
-
-Image::Ptr ResourceManager::getImage(int _iIndex) const
-{
-	if (_iIndex >= 0 && _iIndex < (int)m_vecImages.size())
-	{
-		return	m_vecImages[_iIndex].pImage;
-	}
-
-	return	nullptr;
-}
-
-int ResourceManager::findImage(int _iHash) const
-{
-	int	t_c	= (int)m_vecImages.size();
-
-	for (int iLoop = 0; iLoop < t_c; ++iLoop)
-	{
-		if (m_vecImages[iLoop].iHash == _iHash)
+		if (nullptr == pImage)
 		{
-			return	iLoop;
+			return	-1;
 		}
+
+		ImageData	imageData;
+
+		imageData.pImage	= pImage;
+
+		m_mapImages[iHash]	= imageData;
 	}
 
-	return	-1;
+	m_mapImages[iHash].iReferenceCount++;
+
+	return	iHash;
 }
 
-int ResourceManager::addImage(StoredImage& _storedImage)
+Image::Ptr ResourceManager::getImage(int _iHash) const
 {
-	int	t_c	= m_vecImages.size();
+	ImageMap::const_iterator	iterator	= m_mapImages.find(_iHash);
+
+	if (iterator == m_mapImages.end())
+	{
+		return	nullptr;
+	}
 	
-	for (int iLoop = 0; iLoop < t_c; ++iLoop)
-	{
-		const StoredImage& pStoredImage	= m_vecImages[iLoop];
-
-		if (0 == pStoredImage.iHash && nullptr == pStoredImage.pImage)
-		{
-			m_vecImages[iLoop]	= _storedImage;
-
-			return	iLoop;
-		}
-	}
-
-	m_vecImages.push_back(_storedImage);
-
-	return	t_c;
+	return	iterator->second.pImage;
 }
 
-void ResourceManager::removeImages()
+void ResourceManager::removeImage(int _iHash)
 {
-	m_vecImages.clear();
+	ImageMap::const_iterator	iterator	= m_mapImages.find(_iHash);
+
+	if (iterator != m_mapImages.end())
+	{
+		m_mapImages[_iHash].iReferenceCount--;
+		
+		if (m_mapImages[_iHash].iReferenceCount <= 0)
+		{
+			m_mapImages[_iHash].pImage.reset();
+			
+			m_mapImages.erase(iterator);
+		}
+	}
 }

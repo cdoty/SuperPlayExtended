@@ -51,25 +51,31 @@ class DisplayBase
 		void removeIndexBuffer(int _iIndex);
 
 		// Create texture
-		int createTexture(const char* _szTextureName, int _ImageIndex, Texture::TextureFormat _eTextureFormat, bool _bDynamic = false);
+		int createTexture(const std::string& _strTextureName, int _ImageIndex, Texture::TextureFormat _eTextureFormat, bool _bDynamic = false);
 		
 		// Get texture
 		Texture::Ptr getTexture(int _iHash);
 
-		// Remove texture
-		void removeTexture(int _iHash);
-
 		// Bind texture
 		void bindTexture(int _iHash);
 
+		// Remove texture
+		void removeTexture(int _iHash);
+
 		// Draw triangles
 		bool drawTriangles(int _iVertexBufferIndex, int _iVertices = 0, int _iIndexBufferIndex = -1, int _iTriangles = 0);
+		bool drawTriangles(VertexBuffer::Ptr _pVertexBuffer, int _iVertices = 0, IndexBuffer::Ptr _pIndexBuffer = nullptr, int _iTriangles = 0);
 		
 		// Set clip rect
 		void setClipRect(const Rect& _rctClip);
 
 		// Reset clip rect
 		void resetClipRect();
+
+		// Set border color
+		void setBorderColor(float _fRed, float _fGreen, float _fBlue, float _fAlpha);
+		void setBorderColor(uint8_t _red, uint8_t _green, uint8_t _blue, uint8_t _alpha);
+		void setBorderColor(uint32_t _color);
 
 		// Set clear color
 		void setClearColor(float _fRed, float _fGreen, float _fBlue, float _fAlpha);
@@ -79,11 +85,13 @@ class DisplayBase
 	protected:
 		struct TextureData
 		{
-			Texture::Ptr	pTexture;
-			int				iReferenceCount;
+			Texture::Ptr	pTexture;			// Texture
+			int				iReferenceCount;	// Reference count
+		
+			TextureData() : iReferenceCount(0) {}
 		};
 
-		typedef	std::unordered_map<size_t, TextureData> TextureMap;
+		typedef	std::unordered_map<int, TextureData> TextureMap;
 
 		std::vector<VertexBuffer::Ptr>	m_vecVertexBuffers;	// Vertex buffers
 		std::vector<IndexBuffer::Ptr>	m_vecIndexBuffers;	// Index buffers
@@ -114,6 +122,7 @@ class DisplayBase
 		GLuint		m_uFrameBuffer;				// Frame buffer
 		GLuint		m_uRenderTexture;			// Render texture
 		int			m_iVertexBuffer;			// Vertex buffer
+		float		m_borderColor[4];			// Border color
 		float		m_clearColor[4];			// Clear color
 		
 		// Constructor

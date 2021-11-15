@@ -8,12 +8,12 @@
 #include "System.h"
 
 SpriteBatch::SpriteBatch()	:
+	m_pBuffer(NULL),
 	m_iVertexBufferIndex(-1),
 	m_iIndexBufferIndex(-1),
 	m_iTextureIndex(-1),
 	m_iSpriteIndex(0),
-	m_iMaxSprites(0),
-	m_pBuffer(NULL)
+	m_iMaxSprites(0)
 {
 }
 
@@ -135,12 +135,12 @@ void SpriteBatch::startBatch()
 	m_iSpriteIndex	= 0;
 }
 
-void SpriteBatch::drawSprite(const RenderParams& _renderParams)
+void SpriteBatch::drawSprite(int _iTextureHash, float _fX, float _fY, float _fWidth, float _fHeight, float _fU1, float _fV1, float _fU2, float _fV2)
 {
 	// If changing texture, draw sprite batch
-	if (m_iTextureIndex != _renderParams.iTextureHash)
+	if (m_iTextureIndex != _iTextureHash)
 	{
-		m_iTextureIndex	= _renderParams.iTextureHash;
+		m_iTextureIndex	= _iTextureHash;
 
 		Display::Ptr pDisplay	= System::getDisplay();
 
@@ -159,10 +159,10 @@ void SpriteBatch::drawSprite(const RenderParams& _renderParams)
 	{
 		int	iIndex	= m_iSpriteIndex << 2;
 
-		float	fX1	= _renderParams.fX;
-		float	fY1	= _renderParams.fY;
-		float	fX2	= fX1 + _renderParams.fWidth;
-		float	fY2	= fY1 + _renderParams.fHeight;
+		float	fX1	= _fX;
+		float	fY1	= _fY;
+		float	fX2	= fX1 + _fWidth;
+		float	fY2	= fY1 + _fHeight;
 
 		CustomVertex*	pBuffer	= &m_pBuffer[iIndex];
 
@@ -172,32 +172,32 @@ void SpriteBatch::drawSprite(const RenderParams& _renderParams)
 		pBuffer->fX	= fX1;
 		pBuffer->fY	= fY1;
 
-		pBuffer->fU	= _renderParams.fU1;
-		pBuffer->fV	= _renderParams.fV1;
+		pBuffer->fU	= _fU1;
+		pBuffer->fV	= _fV1;
 	
 		pBuffer++;
 
 		pBuffer->fX	= fX1;
 		pBuffer->fY	= fY2;
 
-		pBuffer->fU	= _renderParams.fU1;
-		pBuffer->fV	= _renderParams.fV2;
+		pBuffer->fU	= _fU1;
+		pBuffer->fV	= _fV2;
 	
 		pBuffer++;
 
 		pBuffer->fX	= fX2;
 		pBuffer->fY	= fY1;
 
-		pBuffer->fU	= _renderParams.fU2;
-		pBuffer->fV	= _renderParams.fV1;
+		pBuffer->fU	= _fU2;
+		pBuffer->fV	= _fV1;
 	
 		pBuffer++;
 
 		pBuffer->fX	= fX2;
 		pBuffer->fY	= fY2;
 
-		pBuffer->fU	= _renderParams.fU2;
-		pBuffer->fV	= _renderParams.fV2;
+		pBuffer->fU	= _fU2;
+		pBuffer->fV	= _fV2;
 	
 		m_iSpriteIndex++;
 

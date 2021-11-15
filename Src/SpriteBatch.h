@@ -1,11 +1,9 @@
 #pragma once
 
+#include "CustomVertex.h"
 #include "Macros.h"
 #include "Rect.h"
-#include "RenderParams.h"
 #include "VertexBuffer.h"
-
-struct CustomVertex;
 
 class SpriteBatch
 {
@@ -29,19 +27,19 @@ class SpriteBatch
 		void startBatch();
 
 		// Draw sprite
-		void drawSprite(const RenderParams& _renderParams);
+		void drawSprite(int _iTextureHash, float _fX, float _fY, float _fWidth, float _fHeight, float _fU1, float _fV1, float _fU2, float _fV2);
 
 		// End batch
 		void endBatch();
 
 	protected:
+		VertexBuffer::Ptr	m_pVertexBuffer;		// Temp vertex buffer pointer, used in between begin and end batch calls
+		CustomVertex*		m_pBuffer;				// Temp custom vertex buffer pointer
 		int					m_iVertexBufferIndex;	// Vertex buffer index
 		int					m_iIndexBufferIndex;	// Index buffer index
 		int					m_iTextureIndex;		// Current texture index
 		int					m_iSpriteIndex;			// Current sprite index
 		int					m_iMaxSprites;			// Sprite batch maximum sprites
-		VertexBuffer::Ptr	m_pVertexBuffer;		// Temp vertex buffer pointer, used in between begin and end batch calls
-		CustomVertex*		m_pBuffer;				// Temp custom vertex buffer pointer
 
 		// Constructor
 		SpriteBatch();

@@ -38,10 +38,8 @@ DisplayBase::DisplayBase()	:
 	m_uRenderTexture(0),
 	m_iVertexBuffer(-1)
 {
-	m_clearColor[0]	= 0.0f;
-	m_clearColor[1]	= 0.0f;
-	m_clearColor[2]	= 0.0f;
-	m_clearColor[3]	= 1.0f;
+	setClearColor(0xFF000000);
+	setBorderColor(0xFF000000);
 }
 
 DisplayBase::~DisplayBase()
@@ -82,7 +80,7 @@ void DisplayBase::clear()
 	// Use shader program
 	glUseProgram(m_uShaderProgram);
 
-	glClearColor(1.0f, 0.0f , 0.0f, 1.0f);
+	glClearColor(m_clearColor[0], m_clearColor[1], m_clearColor[2], m_clearColor[3]);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glViewport(0, 0, m_iWidth, m_iHeight);
 
@@ -337,9 +335,9 @@ void DisplayBase::removeIndexBuffer(int _iIndex)
 	}
 }
 
-int DisplayBase::createTexture(const char* _szTextureName, int _iImageIndex, Texture::TextureFormat _eTextureFormat, bool _bDynamic)
+int DisplayBase::createTexture(const std::string& _strTextureName, int _iImageIndex, Texture::TextureFormat _eTextureFormat, bool _bDynamic)
 {
-	int	iHash	= Functions::getHash(_szTextureName);
+	int	iHash	= Functions::getHash(_strTextureName);
 
 	if (m_mapTextures.find(iHash) == m_mapTextures.end())
 	{
@@ -352,35 +350,21 @@ int DisplayBase::createTexture(const char* _szTextureName, int _iImageIndex, Tex
 
 		TextureData	textureData;
 
-		textureData.pTexture		= pTexture;
-		textureData.iReferenceCount	= 1;
+		textureData.pTexture	= pTexture;
 
-		m_mapTextures[iHash]		=  textureData;
+		m_mapTextures[iHash]	= textureData;
 	}
 	
-	else
-	{
-		m_mapTextures[iHash].iReferenceCount++;
-	}
+	m_mapTextures[iHash].iReferenceCount++;
 
 	return	iHash;
 }
 
-Texture::Ptr DisplayBase::getTexture(int _iHash)
-{
-	if (m_mapTextures.find(_iHash) == m_mapTextures.end())
-	{
-		return	nullptr;
-	}
-	
-	return	m_mapTextures[_iHash].pTexture;
-}
-
 void DisplayBase::removeTexture(int _iHash)
 {
-	TextureMap::const_iterator	itFound	= m_mapTextures.find(_iHash);
+	TextureMap::const_iterator	iterator	= m_mapTextures.find(_iHash);
 
-	if (itFound != m_mapTextures.end())
+	if (iterator != m_mapTextures.end())
 	{
 		m_mapTextures[_iHash].iReferenceCount--;
 		
@@ -388,9 +372,21 @@ void DisplayBase::removeTexture(int _iHash)
 		{
 			m_mapTextures[_iHash].pTexture.reset();
 			
-			m_mapTextures.erase(itFound);
+			m_mapTextures.erase(iterator);
 		}
 	}
+}
+
+Texture::Ptr DisplayBase::getTexture(int _iHash)
+{
+	TextureMap::const_iterator	iterator	= m_mapTextures.find(_iHash);
+
+	if (iterator == m_mapTextures.end())
+	{
+		return	nullptr;
+	}
+	
+	return	iterator->second.pTexture;
 }
 
 void DisplayBase::bindTexture(int _iHash)
@@ -431,7 +427,7 @@ bool DisplayBase::drawTriangles(int _iVertexBufferIndex, int _iVertices, int _iI
 	glVertexAttribPointer(m_iVertexArray, 2, GL_FLOAT, false, iStride, &pBuffer[0].fX);
 	glVertexAttribPointer(m_iUVArray, 2, GL_FLOAT, false, iStride, &pBuffer[0].fU);
 
-	if (_iIndexBufferIndex >= 0 -1)
+	if (_iIndexBufferIndex >= 0)
 	{
 		if (_iIndexBufferIndex >= (int)m_vecIndexBuffers.size())
 		{
@@ -443,6 +439,48 @@ bool DisplayBase::drawTriangles(int _iVertexBufferIndex, int _iVertices, int _iI
 		int	iIndexCount;
 
 		GLushort*	pIndexBuffer	= m_vecIndexBuffers[_iIndexBufferIndex]->getBuffer(iIndexCount).get();
+
+		glDrawElements(GL_TRIANGLES, _iTriangles * 3, GL_UNSIGNED_SHORT, pIndexBuffer);
+	}
+	
+	else
+	{
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, _iVertices);
+	}
+	
+	// Disable vertex and texture coordinate arrays
+	glDisableVertexAttribArray(m_iVertexArray);	
+	glDisableVertexAttribArray(m_iUVArray);	
+
+	return	true;
+}
+
+bool DisplayBase::drawTriangles(VertexBuffer::Ptr _pVertexBuffer, int _iVertices, IndexBuffer::Ptr _pIndexBuffer, int _iTriangles)
+{
+	if (nullptr == _pVertexBuffer)
+	{
+		Log::instance()->logError("Vertext buffer is invalid.");
+
+		return	false;
+	}
+
+	int	iVertexCount;
+
+	glEnableVertexAttribArray(m_iVertexArray);
+	glEnableVertexAttribArray(m_iUVArray);
+   
+	CustomVertex*	pBuffer	= _pVertexBuffer->getBuffer(iVertexCount).get();
+
+	int	iStride	= sizeof(CustomVertex);
+
+	glVertexAttribPointer(m_iVertexArray, 2, GL_FLOAT, false, iStride, &pBuffer[0].fX);
+	glVertexAttribPointer(m_iUVArray, 2, GL_FLOAT, false, iStride, &pBuffer[0].fU);
+
+	if (_pIndexBuffer != nullptr)
+	{
+		int	iIndexCount;
+
+		GLushort*	pIndexBuffer	= _pIndexBuffer->getBuffer(iIndexCount).get();
 
 		glDrawElements(GL_TRIANGLES, _iTriangles * 3, GL_UNSIGNED_SHORT, pIndexBuffer);
 	}
@@ -471,6 +509,35 @@ void DisplayBase::resetClipRect()
 	glDisable(GL_SCISSOR_TEST);
 }
 
+void DisplayBase::setBorderColor(float _fRed, float _fGreen, float _fBlue, float _fAlpha)
+{
+	m_borderColor[0]	= _fRed;
+	m_borderColor[1]	= _fGreen;
+	m_borderColor[2]	= _fBlue;
+	m_borderColor[3]	= _fAlpha;
+}
+
+void DisplayBase::setBorderColor(uint8_t _red, uint8_t _green, uint8_t _blue, uint8_t _alpha)
+{
+	m_borderColor[0]	= (float)_red / 255.0f;
+	m_borderColor[1]	= (float)_green / 255.0f;
+	m_borderColor[2]	= (float)_blue / 255.0f;
+	m_borderColor[3]	= (float)_alpha / 255.0f;
+}
+
+void DisplayBase::setBorderColor(uint32_t _color)
+{
+	uint8_t	alpha	= (_color & 0xFF000000) >> 24;
+	uint8_t	red		= (_color & 0x00FF0000) >> 16;
+	uint8_t	green	= (_color & 0x0000FF00) >> 8;
+	uint8_t	blue	= (_color & 0x000000FF);
+
+	m_borderColor[0]	= (float)red / 255.0f;
+	m_borderColor[1]	= (float)green / 255.0f;
+	m_borderColor[2]	= (float)blue / 255.0f;
+	m_borderColor[3]	= (float)alpha / 255.0f;
+}
+
 void DisplayBase::setClearColor(float _fRed, float _fGreen, float _fBlue, float _fAlpha)
 {
 	m_clearColor[0]	= _fRed;
@@ -489,10 +556,10 @@ void DisplayBase::setClearColor(uint8_t _red, uint8_t _green, uint8_t _blue, uin
 
 void DisplayBase::setClearColor(uint32_t _color)
 {
-	uint8_t	alpha	= (_color & 0xFF000000);
-	uint8_t	red		= (_color & 0x00FF0000) >> 24;
-	uint8_t	green	= (_color & 0x0000FF00) >> 16;
-	uint8_t	blue	= (_color & 0x000000FF) >> 8;
+	uint8_t	alpha	= (_color & 0xFF000000) >> 24;
+	uint8_t	red		= (_color & 0x00FF0000) >> 16;
+	uint8_t	green	= (_color & 0x0000FF00) >> 8;
+	uint8_t	blue	= (_color & 0x000000FF);
 
 	m_clearColor[0]	= (float)red / 255.0f;
 	m_clearColor[1]	= (float)green / 255.0f;

@@ -21,3 +21,6 @@ Debug/SuperPlay.lib
 /Roku/package/*
 SteamLink/package/SuperPlay/SuperPlay
 SteamLink/package/SuperPlay/SuperPlay
+*.iobj
+*.ipdb
+*.lib
