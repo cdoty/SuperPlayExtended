@@ -28,6 +28,6 @@ OBJECTS	= $(SRC:.cpp=.o)
 
 LIBRARIES += -lEGL -lGLESv2 -lz -lSDL2
 
-PACKAGE = $(BINARY).tgz
+PACKAGE = ./$(BINARY).tgz
 
 include $(PLATFORM)/rules.mk

@@ -10,7 +10,6 @@ DEPENDS := $(OBJECTS:%.o=%.d)
 .PHONY: env-check all clean
 all: env-check $(PACKAGE)
 clean:
-	rm -f $(PACKAGE)
 	rm -f $(OBJECTS) $(DEPENDS)
 	rm -rf $(PATH_PACKAGE)
 env-check:

@@ -8,12 +8,8 @@ COMPONENTS := $(wildcard $(PATH_COMPONENTS)/*)
 ASSETS := $(wildcard $(PATH_ASSETS)/*)
 DEPENDS := $(OBJECTS:%.o=%.d)
 
-.PHONY: env-check all clean repackage package-clean
+.PHONY: env-check all clean
 all: env-check $(PACKAGE)
-repackage: package-clean $(PACKAGE)
-package-clean:
-	rm -f $(PACKAGE)
-	rm -rf $(PATH_PACKAGE)
 clean:
 	rm -f $(PACKAGE)
 	rm -f $(OBJECTS) $(DEPENDS)
