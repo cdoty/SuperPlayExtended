@@ -11,9 +11,8 @@ DEPENDS := $(OBJECTS:%.o=%.d)
 .PHONY: .EXPORT_ALL_VARIABLES env-check all clean
 all: env-check $(PACKAGE)
 clean:
-	rm -f $(PACKAGE)
+	rm -rf $(PACKAGE_DIR)
 	rm -f $(OBJECTS) $(DEPENDS)
-	rm -rf $(PATH_PACKAGE)
 env-check:
 ifeq (, $(wildcard $(CXX)))
 	$(error CXX is not set, did you forget to include platform make file?)

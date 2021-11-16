@@ -1,8 +1,9 @@
 
-SuperPlay.vcxproj.user
 *.obj
-*.pdb
+*.iobj
 *.idb
+*.pdb
+*.ipdb
 *.tlog
 *.log
 *.ilk
@@ -10,7 +11,8 @@ SuperPlay.vcxproj.user
 *.exe
 *.ipch
 *.res
-Debug/SuperPlay.lib
+*.lib
+*.user
 *.opendb
 *.db
 *.suo
@@ -18,11 +20,7 @@ Debug/SuperPlay.lib
 *.d
 *.bin
 *.tgz
-/Roku/package/*
-SteamLink/package/SuperPlay/SuperPlay
-SteamLink/package/SuperPlay/SuperPlay
-*.iobj
-*.ipdb
-*.lib
-SteamLink/package/SuperPlay/SuperPlay
-SteamLink/package/SuperPlay/SuperPlay
+package/
+.vs/
+Debug/
+Release/
