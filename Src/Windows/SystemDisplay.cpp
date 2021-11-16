@@ -115,6 +115,11 @@ bool SystemDisplay::initializeEGL()
 		return	false;
 	}
 
+	if (EGL_FALSE == eglSwapInterval(m_eglDisplay, 1))
+	{
+		Log::instance()->logError("Unable to set swap interval context");
+	}
+
 	if (EGL_FALSE == eglQuerySurface(m_eglDisplay, m_eglSurface, EGL_WIDTH, &m_iWidth))
 	{
 		Log::instance()->logError("Unable to get surface width %04X", eglGetError());
