@@ -51,7 +51,7 @@ class DisplayBase
 		void removeIndexBuffer(int _iIndex);
 
 		// Create texture
-		int createTexture(const std::string& _strTextureName, int _ImageIndex, Texture::TextureFormat _eTextureFormat, bool _bDynamic = false);
+		int createTexture(const std::string& _strTextureName, int _iImageIndex, Texture::TextureFormat _eTextureFormat, bool _bDynamic = false);
 		
 		// Get texture
 		Texture::Ptr getTexture(int _iHash);
