@@ -84,7 +84,7 @@ bool Image::initialize(const std::string& _strFilename)
 	m_iWidth	= iWidth;
 	m_iHeight	= iHeight;
 
-#if defined ARGB_TEXTURES
+#if defined USE_ARGB_TEXTURES
 	uint32_t*	pBuffer	= m_pImage;
 
 	for (int iLoop = 0; iLoop < m_iWidth * m_iHeight; ++iLoop)

@@ -1,4 +1,4 @@
 #pragma once
 
 // System defines
-#define	BIG_ENDIAN
+#define	USE_BIG_ENDIAN

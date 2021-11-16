@@ -408,7 +408,7 @@ bool TileMap::loadTilemap(const std::string& _strTileMap)
 			return	false;
 		}
 
-#if defined BIG_ENDIAN
+#if defined USE_BIG_ENDIAN
 		tile	= Functions::convertToBigEndian(tile);
 #endif
 
