@@ -145,7 +145,7 @@ bool TileMap::setTileMap(const std::string& _strTileMap, int _iStartX, int _iSta
 
 	CustomVertex*	pVertexBuffer	= pVertexBufferMemory.get();
 
-	if (_iBlankTile > -1)
+	if (_iBlankTile != -1)
 	{
 		float	fBlankU1	= (float)iBlankTileX / (float)m_iTextureTileX;
 		float	fBlankV1	= (float)iBlankTileY / (float)m_iTextureTileY;
@@ -175,6 +175,9 @@ bool TileMap::setTileMap(const std::string& _strTileMap, int _iStartX, int _iSta
 		{
 			uint32_t	tile	= *pTileMap;
 
+#ifdef USE_BIG_ENDIAN
+			tile	= Functions::convertToBigEndian(tile);
+#endif
 			int	iTileX	= (int)(tile % m_iTextureTileX);
 			int	iTileY	= (int)(tile / m_iTextureTileX);
 
