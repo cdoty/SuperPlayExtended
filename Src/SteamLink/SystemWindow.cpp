@@ -27,7 +27,7 @@ SystemWindow::~SystemWindow()
 
 SystemWindow::Ptr SystemWindow::create()
 {
-	INSTANCE(pWindow, Window())
+	INSTANCE(pSystemWindow, SystemWindow())
 
 	if (false == pSystemWindow->initialize())
 	{
@@ -54,7 +54,7 @@ bool SystemWindow::initialize()
 	return	true;
 }
 
-void Window::close()
+void SystemWindow::close()
 {
 	if (m_pSDLWindow != NULL)
 	{

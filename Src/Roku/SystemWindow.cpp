@@ -45,7 +45,7 @@ bool SystemWindow::initialize()
 	return	true;
 }
 
-void Window::close()
+void SystemWindow::close()
 {
 	if (m_pInputContext != NULL)
 	{
