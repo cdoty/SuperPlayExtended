@@ -67,7 +67,7 @@ bool Sprite::draw(int _iDestX, int _iDestY, int _iDestWidth, int _iDestHeight, i
 		return	false;
 	}
 
-	Display::Ptr	pDisplay	= System::getDisplay();
+	SystemDisplay::Ptr	pDisplay	= System::getDisplay();
 
 	if (nullptr == pDisplay)
 	{
@@ -128,7 +128,7 @@ bool Sprite::drawCentered(int _iCenterDestX, int _iCenterDestY, int _iDestWidth,
 		return	false;
 	}
 
-	Display::Ptr	pDisplay	= System::getDisplay();
+	SystemDisplay::Ptr	pDisplay	= System::getDisplay();
 
 	if (nullptr == pDisplay)
 	{
@@ -187,7 +187,7 @@ bool Sprite::loadProgram()
 bool Sprite::loadTexture(const std::string& _strTexture)
 {
 	ResourceManager::Ptr	pResourceManager	= System::getResourceManager();
-	Display::Ptr			pDisplay			= System::getDisplay();
+	SystemDisplay::Ptr		pDisplay			= System::getDisplay();
 
 	if (nullptr == pResourceManager)
 	{
@@ -284,12 +284,10 @@ bool Sprite::createBuffers()
 
 void Sprite::render()
 {
-	Display::Ptr	pDisplay	= System::getDisplay();
+	SystemDisplay::Ptr	pDisplay	= System::getDisplay();
 
 	if (pDisplay != nullptr)
 	{
-		Display::Ptr pDisplay	= System::getDisplay();
-
 		pDisplay->bindTexture(m_iTextureHash);
 
 		// Draw the sprite batches

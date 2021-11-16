@@ -5,34 +5,34 @@
 #include "KeyDefines.h"
 #include "Log.h"
 #include "System.h"
-#include "Window.h"
+#include "SystemWindow.h"
 
-int Window::ms_iScreenWidth		= 0;	// Screen size
-int Window::ms_iScreenHeight	= 0;
+int SystemWindow::ms_iScreenWidth		= 0;	// Screen size
+int SystemWindow::ms_iScreenHeight	= 0;
 
-Window::Window()	:
+SystemWindow::SystemWindow()	:
 	m_pInputContext(NULL)
 {
 }
 
-Window::~Window()
+SystemWindow::~SystemWindow()
 {
 	close();
 }
 
-Window::Ptr Window::create()
+SystemWindow::Ptr SystemWindow::create()
 {
-	INSTANCE(pWindow, Window())
+	INSTANCE(pSystemWindow, SystemWindow())
 
-	if (false == pWindow->initialize())
+	if (false == pSystemWindow->initialize())
 	{
-		pWindow.reset();
+		pSystemWindow.reset();
 	}
 
-	return	pWindow;
+	return	pSystemWindow;
 }
 
-bool Window::initialize()
+bool SystemWindow::initialize()
 {
 	m_iWidth	= ms_iScreenWidth;
 	m_iHeight	= ms_iScreenHeight;
@@ -55,7 +55,7 @@ void Window::close()
 	}
 }
 
-bool Window::update()
+bool SystemWindow::update()
 {
 	if (m_pInputContext != NULL)
 	{
@@ -240,11 +240,11 @@ bool Window::update()
 	return	true;
 }
 
-void Window::quit()
+void SystemWindow::quit()
 {
 }
 
-bool Window::createInputContext()
+bool SystemWindow::createInputContext()
 {
 	if (RokuInputContext_create(&m_pInputContext) != 0)
 	{
@@ -256,7 +256,7 @@ bool Window::createInputContext()
 	return	true;
 }
 
-void Window::releaseInputContext()
+void SystemWindow::releaseInputContext()
 {
 	RokuInputContext_release(m_pInputContext);
 }

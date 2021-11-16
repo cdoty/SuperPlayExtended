@@ -1,0 +1,10 @@
+
+Version=1.0
+Type=Application
+Name=SuperPlay
+Comment=Super Play EGL framework
+Exec=SuperPlay
+Icon=icon.png
+Terminal=false
+Type=Application
+Categories=Game

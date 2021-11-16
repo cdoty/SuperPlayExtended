@@ -1,71 +1,58 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
-#include <SDL2/SDL_syswm.h>
+#include  <X11/Xatom.h>
+#include  <X11/Xutil.h>
 
 #include "Defines.h"
 #include "KeyDefines.h"
 #include "Log.h"
 #include "System.h"
-#include "Window.h"
+#include "SystemWindow.h"
 
 static const int gsc_iDeadZone	= 4096;	// Controller dead zone
 
-Window::Window()	:
-	m_pSDLWindow(NULL),
-	m_displayType(0),
-	m_windowType(0),
+SystemWindow::SystemWindow()	:
+	m_pDisplay(NULL),
 	m_iXDirection(0),
 	m_iYDirection(0)
 {
 }
 
-Window::~Window()
+SystemWindow::~SystemWindow()
 {
 	close();
 }
 
-Window::Ptr Window::create()
+SystemWindow::Ptr SystemWindow::create()
 {
-	INSTANCE(pWindow, Window())
+	INSTANCE(pSystemWindow, SystemWindow())
 
-	if (false == pWindow->initialize())
+	if (false == pSystemWindow->initialize())
 	{
-		pWindow.reset();
+		pSystemWindow.reset();
 	}
 
-	return	pWindow;
+	return	pSystemWindow;
 }
 
-bool Window::initialize()
+bool SystemWindow::initialize()
 {
 	if (false == createWindow())
 	{
 		return	false;
 	}
 
-	if (NULL == m_pSDLWindow)
-	{
-		return	false;
-	}
-
-	SDL_ShowWindow(m_pSDLWindow);
-
 	return	true;
 }
 
-void Window::close()
+void SystemWindow::close()
 {
-	if (m_pSDLWindow != NULL)
-	{
-		SDL_DestroyWindow(m_pSDLWindow);
-
-		m_pSDLWindow	= NULL;
-	}
 }
 
-bool Window::update()
+bool SystemWindow::update()
 {
+#if 0
 	SDL_Event	event;
 
 	while (1 == SDL_PollEvent(&event))
@@ -328,16 +315,18 @@ bool Window::update()
 				break;
 		}
 	}
+#endif
 
 	return	true;
 }
 
-void Window::quit()
+void SystemWindow::quit()
 {
 }
 
-bool Window::createWindow()
+bool SystemWindow::createWindow()
 {
+#if 0
 	if (SDL_InitSubSystem(SDL_INIT_VIDEO) < 0)
 	{
 		Log::instance()->logError("Unable to initialize SDL: %s", SDL_GetError());
@@ -357,8 +346,7 @@ bool Window::createWindow()
 	m_iWidth	= displayMode.w;
 	m_iHeight	= displayMode.h;
 
-	m_pSDLWindow	= SDL_CreateWindow(gsc_szWindowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_iWidth, m_iHeight, 
-		SDL_WINDOW_FULLSCREEN | SDL_WINDOW_HIDDEN);
+	m_pSDLWindow	= SDL_CreateWindow(gsc_szWindowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_iWidth, m_iHeight, 0);
 
 	if (NULL == m_pSDLWindow)
 	{
@@ -367,33 +355,35 @@ bool Window::createWindow()
 		return	false;
 	}
 
-	SDL_SysWMinfo	sysWMinfo;
-
-	SDL_VERSION(&sysWMinfo.version);
-
-	if (SDL_GetWindowWMInfo(m_pSDLWindow, &sysWMinfo) < 0)
-	{
-		Log::instance()->logError("Unable to get window info: %s", SDL_GetError());
-
-		return	false;
-	}
-
-	if (sysWMinfo.subsystem != SDL_SYSWM_VIVANTE)
-	{
-		Log::instance()->logError("Windows subsystem info is incorrect");
-
-		return	false;
-	}
-	
-	m_displayType	= sysWMinfo.info.vivante.display;
-	m_windowType	= sysWMinfo.info.vivante.window;
-
 	if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER))
 	{
 		Log::instance()->logError("Unable to initialize SDL game controler system.");
 
 		return	false;
 	}
+#endif
 
+	m_pDisplay	= XOpenDisplay(NULL);
+
+	if (NULL == m_pDisplay)
+	{
+		Log::instance()->logError("Unable to initialize X display connection");
+
+		return	false;
+	}
+
+	Screen*	pScreen	= DefaultScreenOfDisplay(m_pDisplay);
+
+	m_iWidth	= pScreen->width;
+	m_iHeight	= pScreen->height;
+
+	Window rootWindow	=  DefaultRootWindow(m_pDisplay);
+
+	XSetWindowAttributes	windowAttributes;
+
+	windowAttributes.event_mask	= ExposureMask | PointerMotionMask | KeyPressMask;
+
+	m_window	= XCreateWindow(m_pDisplay, rootWindow, 0, 0, m_iWidth, m_iHeight);
+	
 	return	true;
 }

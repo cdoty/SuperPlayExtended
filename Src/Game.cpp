@@ -35,7 +35,7 @@ Game::Ptr Game::create()
 
 bool Game::initialize()
 {
-	Display::Ptr	pDisplay	= System::getDisplay();
+	SystemDisplay::Ptr	pDisplay	= System::getDisplay();
 
 	if (nullptr == pDisplay)
 	{
@@ -207,7 +207,7 @@ bool Game::createTileMap()
 bool Game::loadSprites()
 {
 	ResourceManager::Ptr	pResourceManager	= System::getResourceManager();
-	Display::Ptr			pDisplay			= System::getDisplay();
+	SystemDisplay::Ptr		pDisplay			= System::getDisplay();
 
 	if (nullptr == pResourceManager)
 	{
@@ -260,7 +260,7 @@ void Game::releaseSprites()
 {
 	if (m_sprite.iTextureHash != 0)
 	{
-		Display::Ptr	pDisplay	= System::getDisplay();
+		SystemDisplay::Ptr	pDisplay	= System::getDisplay();
 
 		if (pDisplay != nullptr)
 		{

@@ -1,12 +1,12 @@
-PATH_SDK = $(PLATFORM_DIR)
-PATH_LIB = $(PATH_SDK)/lib
-PATH_USR = $(PATH_SDK)/usr
-PATH_TOOLCHAIN = $(PATH_SDK)/toolchain
-SYSROOT	= $(PATH_SDK)/rootfs
+PATH_LIB = $(PLATFORM_DIR)/lib
+PATH_USR = $(PLATFORM_DIR)/usr
+PATH_TOOLCHAIN = $(PLATFORM_DIR)/toolchain
+CROSS_COMPILE = $(PATH_TOOLCHAIN)/bin/armv7a-cros-linux-gnueabi-
+SYSROOT	= $(PLATFORM_DIR)/rootfs
 
 LINK_OPTIONS = "-Wl,-rpath-link,$(SYSROOT)/lib -Wl,-rpath-link,$(SYSROOT)/usr/lib -Wl,-rpath-link,$(SYSROOT)/usr/lib/arm-linux-gnueabihf"	
 LIBRARIES = -lc -lstdc++ -lpthread -lrt -ldl -lm -lshm -lGAL -lVSC -lOSAL -lPEAgent
-CROSS_COMPILE = $(PATH_TOOLCHAIN)/bin/armv7a-cros-linux-gnueabi-
+
 C = $(CROSS_COMPILE)gcc --sysroot=$(SYSROOT) $(LINK_OPTIONS)
 CXX = $(CROSS_COMPILE)g++ --sysroot=$(SYSROOT)
 AR = $(CROSS_COMPILE)ar

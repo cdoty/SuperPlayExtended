@@ -2,8 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 #include "CustomVertex.h"
-#include "Display.h"
 #include "Log.h"
+#include "SystemDisplay.h"
 #include "VertexBuffer.h"
 
 VertexBuffer::VertexBuffer()	:

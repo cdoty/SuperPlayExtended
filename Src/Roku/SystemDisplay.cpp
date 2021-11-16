@@ -2,31 +2,30 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 #include "Defines.h"
-#include "Display.h"
 #include "Log.h"
-#include "System.h"
+#include "SystemDisplay.h"
 
-#pragma comment(lib, "libEGL.dll.lib")
-#pragma comment(lib, "libGLESv2.dll.lib")
-
-Display::Display()	:
+SystemDisplay::SystemDisplay()	:
 	super()
 {
 }
 
-Display::Ptr Display::create()
+SystemDisplay::~SystemDisplay()
 {
-	INSTANCE(pDisplay, Display())
-
-	if (false == pDisplay->initialize())
-	{
-		pDisplay.reset();
-	}
-
-	return	pDisplay;
 }
 
-bool Display::initializeEGL()
+SystemDisplay::Ptr SystemDisplay::create()
+{
+	INSTANCE(pSystemDisplay, SystemDisplay())
+
+	if (false == pSystemDisplay->initialize())
+	{
+		pSystemDisplay.reset();
+	}
+
+	return	pSystemDisplay;
+}
+bool SystemDisplay::initializeEGL()
 {
 	m_eglDisplay	= eglGetDisplay(EGL_DEFAULT_DISPLAY);
 
@@ -51,11 +50,14 @@ bool Display::initializeEGL()
 
 	const EGLint configAttributes[]	=
 	{
-		EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
-		EGL_BLUE_SIZE, 8,
-		EGL_GREEN_SIZE, 8,
+		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
+		EGL_BUFFER_SIZE, 32,
+		EGL_ALPHA_SIZE, 8,
 		EGL_RED_SIZE, 8,
-		EGL_DEPTH_SIZE,24,
+		EGL_GREEN_SIZE, 8,
+		EGL_BLUE_SIZE, 8,
+		EGL_DEPTH_SIZE, 16,
+		EGL_STENCIL_SIZE, 0,
 		EGL_NONE
 	};
 
@@ -68,23 +70,18 @@ bool Display::initializeEGL()
 		return	false;
 	}
 
-	HWND	hWnd	= NULL;
+#if 0
+	EGLint	visualID	= 0;
 
-	Window::Ptr	pWindow	= System::getWindow();
-
-	if (pWindow != nullptr)
+	if (EGL_FALSE == eglGetConfigAttrib(m_eglDisplay, m_eglConfig, EGL_NATIVE_VISUAL_ID, &visualID))
 	{
-		hWnd	= pWindow->getHwnd();
-	}
-
-	if (NULL == hWnd)
-	{
-		Log::instance()->logError("Window handle is invalid");
+		Log::instance()->logError("Unable to get EGL config attribute %04X", eglGetError());
 
 		return	false;
 	}
+#endif
 
-	m_eglSurface	= eglCreateWindowSurface(m_eglDisplay, m_eglConfig, (EGLNativeWindowType)hWnd, NULL);
+	m_eglSurface	= eglCreateWindowSurface(m_eglDisplay, m_eglConfig, (EGLNativeWindowType)0, NULL);
 
 	if (EGL_NO_SURFACE == m_eglSurface)
 	{
@@ -113,6 +110,11 @@ bool Display::initializeEGL()
 		Log::instance()->logError("Unable to set EGL context %04X", eglGetError());
 
 		return	false;
+	}
+
+	if (EGL_FALSE == eglSwapInterval(m_eglDisplay, 1))
+	{
+		Log::instance()->logError("Unable to set swap interval context");
 	}
 
 	if (EGL_FALSE == eglQuerySurface(m_eglDisplay, m_eglSurface, EGL_WIDTH, &m_iWidth))

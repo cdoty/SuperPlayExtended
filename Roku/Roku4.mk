@@ -1,10 +1,10 @@
 # Copyright 2021 Roku, Inc.  All rights reserved.
-PATH_SDK = $(ROKU_DIR)/platforms/Roku4
+PATH_SDK = $(PLATFORM_DIR)/platforms/Roku4
 PATH_LIB = $(PATH_SDK)/lib
 PATH_USR = $(PATH_SDK)/usr
 PATH_TOOLCHAIN = $(PATH_SDK)/toolchain
-
 CROSS_COMPILE = $(PATH_TOOLCHAIN)/bin/arm-roku-linux-gnueabi-
+
 CC = $(CROSS_COMPILE)gcc
 CXX = $(CROSS_COMPILE)g++
 AR = $(CROSS_COMPILE)ar

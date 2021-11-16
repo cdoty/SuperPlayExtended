@@ -1,6 +1,6 @@
 // Log - Message logging
 //
-// © 2012 Raster Software. All rights reserved.
+// ï¿½ 2012 Raster Software. All rights reserved.
 
 #pragma once
 
@@ -8,7 +8,7 @@
 
 #include "Macros.h"
 
-#ifdef _WIN32
+#if defined _WIN32 || defined RASPBERRYPI
 #define	WRITE_LOGS
 #endif
 

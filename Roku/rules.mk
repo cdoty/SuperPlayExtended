@@ -1,8 +1,8 @@
 # Copyright 2021 Roku, Inc.  All rights reserved.
-PATH_PACKAGE ?= $(ROKU)/package
-PATH_MANIFEST ?= $(ROKU)/assets/manifest
-PATH_ASSETS ?= $(ROKU)/assets
-PATH_COMPONENTS ?= $(ROKU)/components
+PATH_PACKAGE = $(PLATFORM)/package
+PATH_MANIFEST = $(PLATFORM)/assets/manifest
+PATH_ASSETS = $(PLATFORM)/assets
+PATH_COMPONENTS = $(PLATFORM)/components
 
 COMPONENTS := $(wildcard $(PATH_COMPONENTS)/*)
 ASSETS := $(wildcard $(PATH_ASSETS)/*)

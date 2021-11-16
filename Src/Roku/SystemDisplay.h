@@ -3,21 +3,21 @@
 #include "DisplayBase.h"
 #include "Macros.h"
 
-class Display : public DisplayBase
+class SystemDisplay : public DisplayBase
 {
 	public:
-		PTR(Display)
+		PTR(SystemDisplay)
 		SUPER(DisplayBase)
 
 		// Destructor
-		~Display();
+		~SystemDisplay();
 
 		// Create
 		static Ptr create();
 
 	private:
 		// Constructor
-		Display();
+		SystemDisplay();
 
 		// Initialize EGL
 		bool initializeEGL() override;

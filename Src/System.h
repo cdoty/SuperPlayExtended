@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Display.h"
 #include "Game.h"
 #include "KeyDefines.h"
 #include "ResourceManager.h"
-#include "Window.h"
+#include "SystemDisplay.h"
+#include "SystemWindow.h"
 
 class System
 {
@@ -19,13 +19,13 @@ class System
 		static void run();
 
 		// Mouse button down											   
-		static bool mouseButtonDown(int _x, int _y, Window::MouseButton _button);
+		static bool mouseButtonDown(int _x, int _y, WindowBase::MouseButton _button);
 
 		// Mouse button up
-		static bool mouseButtonUp(int _x, int _y, Window::MouseButton _button);
+		static bool mouseButtonUp(int _x, int _y, WindowBase::MouseButton _button);
 
 		// Mouse button double click
-		static bool mouseDoubleClick(int _x, int _y, Window::MouseButton _button);
+		static bool mouseDoubleClick(int _x, int _y, WindowBase::MouseButton _button);
 		
 		// Mouse move
 		static bool mouseMove(int _x, int _y);
@@ -45,17 +45,17 @@ class System
 		// Processed char
 		static bool processedChar(uint32_t _char);
 
-		// Get display
-		static Display::Ptr getDisplay() {return ms_pDisplay;}
-
 		// Get game
 		static Game::Ptr getGame() {return ms_pGame;}
 
 		// Get resource manager
 		static ResourceManager::Ptr getResourceManager() {return ms_pResourceManager;}
 
-		// Get window
-		static Window::Ptr getWindow() {return ms_pWindow;}
+		// Get system display
+		static SystemDisplay::Ptr getDisplay() {return ms_pDisplay;}
+		
+		// Get system window
+		static SystemWindow::Ptr getWindow() {return ms_pWindow;}
 
 		// Get exit
 		static bool getExit() {return ms_bExit;}
@@ -64,10 +64,10 @@ class System
 		static void setExit(bool _bExit) {ms_bExit = _bExit;}
 
 	private:
-		static Display::Ptr			ms_pDisplay;			// Display
 		static Game::Ptr			ms_pGame;				// Game
 		static ResourceManager::Ptr	ms_pResourceManager;	// Resource manager
-		static Window::Ptr			ms_pWindow;				// Window
+		static SystemDisplay::Ptr	ms_pDisplay;			// Display
+		static SystemWindow::Ptr	ms_pWindow;				// Window
 		static bool					ms_bExit;				// Exit?
 
 		// Read settings

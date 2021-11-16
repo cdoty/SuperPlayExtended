@@ -1,0 +1,29 @@
+PLATFORM = RaspberryPi
+
+include $(PLATFORM)/$(PLATFORM).mk
+
+# Name of executable.
+BINARY = SuperPlay
+
+# Resource path, for icons and splash screens.
+RESOURCE_PATH	= Resources/$(PLATFORM)
+
+# Define source files
+SRC	= $(wildcard Src/*.cpp)
+SRC	+= $(wildcard Src/Base/*.cpp)
+SRC	+= $(wildcard Src/$(PLATFORM)/*.cpp)
+SRC	+= $(wildcard Shared/*.cpp)
+SRC	+= $(wildcard Shared/Base/*.cpp)
+SRC	+= $(wildcard Shared/$(PLATFORM)/*.cpp)
+SRC	+= $(wildcard Shared/Libraries/STB/*.cpp)
+SRC	+= $(wildcard Shared/Libraries/vmath/*.cpp)
+
+# Define include paths
+INCLUDES = -ISrc -ISrc/Base -ISrc/$(PLATFORM) -IShared -IShared/Base -IShared/$(PLATFORM) -IShared/Libraries
+
+# Define objects
+OBJECTS	= $(SRC:.cpp=.o)
+
+LIBRARIES += -lEGL -lGLESv2 -lSDL2
+
+include $(PLATFORM)/rules.mk

@@ -23,8 +23,8 @@ int main(int _argc, char** _argv)
 {
 	if (3 == _argc)
 	{
-		Window::ms_iScreenWidth		= Functions::convertStringToInt(_argv[1]);
-		Window::ms_iScreenHeight	= Functions::convertStringToInt(_argv[2]);
+		SystemWindow::ms_iScreenWidth		= Functions::convertStringToInt(_argv[1]);
+		SystemWindow::ms_iScreenHeight	= Functions::convertStringToInt(_argv[2]);
 	}
 
 	int	iRetVal	= 0;

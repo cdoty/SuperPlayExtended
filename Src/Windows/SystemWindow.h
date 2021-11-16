@@ -9,7 +9,7 @@
 #include "Macros.h"
 #include "WindowBase.h"
 
-class Window : public WindowBase
+class SystemWindow : public WindowBase
 {
 	public:
 		enum MouseButton
@@ -19,11 +19,11 @@ class Window : public WindowBase
 			MouseButtonRight	= 4
 		};
 
-		PTR(Window)
+		PTR(SystemWindow)
 		SUPER(WindowBase)
 
 		// Destructor
-		~Window();
+		~SystemWindow();
 
 		// Create
 		static Ptr create();
@@ -70,5 +70,5 @@ class Window : public WindowBase
 		RECT			m_rctWindow;		// Window rectangle
 
 		// Constructor
-		Window();
+		SystemWindow();
 };

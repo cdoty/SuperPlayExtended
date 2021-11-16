@@ -6,17 +6,17 @@
 #include "Macros.h"
 #include "WindowBase.h"
 
-class Window : public WindowBase
+class SystemWindow : public WindowBase
 {
 	public:
-		PTR(Window)
+		PTR(SystemWindow)
 		SUPER(WindowBase)
 
 		static int ms_iScreenWidth;		// Screen size
 		static int ms_iScreenHeight;
 
 		// Destructor
-		~Window();
+		~SystemWindow();
 
 		// Create
 		static Ptr create();
@@ -38,7 +38,7 @@ class Window : public WindowBase
 		std::mutex			m_inputMutex;		// Input mutex
 
 		// Constructor
-		Window();
+		SystemWindow();
 
 		// Create input context
 		bool createInputContext();

@@ -72,12 +72,10 @@ void TileMap::close()
 
 void TileMap::render()
 {
-	Display::Ptr	pDisplay	= System::getDisplay();
+	SystemDisplay::Ptr	pDisplay	= System::getDisplay();
 
 	if (pDisplay != nullptr)
 	{
-		Display::Ptr pDisplay	= System::getDisplay();
-
 		pDisplay->bindTexture(m_iTextureHash);
 
 		// Draw the sprite batches
@@ -213,7 +211,7 @@ bool TileMap::loadProgram()
 bool TileMap::loadTexture(const std::string& _strTexture)
 {
 	ResourceManager::Ptr	pResourceManager	= System::getResourceManager();
-	Display::Ptr			pDisplay			= System::getDisplay();
+	SystemDisplay::Ptr		pDisplay			= System::getDisplay();
 
 	if (nullptr == pResourceManager)
 	{

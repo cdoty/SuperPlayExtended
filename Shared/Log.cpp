@@ -180,12 +180,7 @@ void Log::logString(eLogType _eType, const std::string& _strNewString)
 #endif
 #endif
 
-#if defined ROKU
-	fprintf(stderr, _strNewString.c_str());
-	fprintf(stderr, "\n");
-#endif
-
-#if defined STEAMLINK
+#if defined ROKU || defined STEAMLINK || defined RASPBERRYPI
 	fprintf(stderr, _strNewString.c_str());
 	fprintf(stderr, "\n");
 #endif

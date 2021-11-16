@@ -6,27 +6,27 @@
 #include "Log.h"
 #include "System.h"
 
-Display::Display()	:
+#pragma comment(lib, "libEGL.dll.lib")
+#pragma comment(lib, "libGLESv2.dll.lib")
+
+SystemDisplay::SystemDisplay()	:
 	super()
 {
 }
 
-Display::~Display()
+SystemDisplay::Ptr SystemDisplay::create()
 {
-}
+	INSTANCE(pSystemDisplay, SystemDisplay())
 
-Display::Ptr Display::create()
-{
-	INSTANCE(pDisplay, Display())
-
-	if (false == pDisplay->initialize())
+	if (false == pSystemDisplay->initialize())
 	{
-		pDisplay.reset();
+		pSystemDisplay.reset();
 	}
 
-	return	pDisplay;
+	return	pSystemDisplay;
 }
-bool Display::initializeEGL()
+
+bool SystemDisplay::initializeEGL()
 {
 	m_eglDisplay	= eglGetDisplay(EGL_DEFAULT_DISPLAY);
 
@@ -51,16 +51,11 @@ bool Display::initializeEGL()
 
 	const EGLint configAttributes[]	=
 	{
-		EGL_RENDERABLE_TYPE,	EGL_OPENGL_ES2_BIT,
-		EGL_SURFACE_TYPE,		EGL_WINDOW_BIT,
-		EGL_RED_SIZE,			8,
-		EGL_GREEN_SIZE,			8,
-		EGL_BLUE_SIZE,  		8,
-		EGL_ALPHA_SIZE, 		8,
-		EGL_DEPTH_SIZE,			16,
-		EGL_STENCIL_SIZE,		0,
-		EGL_SAMPLE_BUFFERS,		0,
-		EGL_SAMPLES,			0,
+		EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
+		EGL_BLUE_SIZE, 8,
+		EGL_GREEN_SIZE, 8,
+		EGL_RED_SIZE, 8,
+		EGL_DEPTH_SIZE,24,
 		EGL_NONE
 	};
 
@@ -73,16 +68,23 @@ bool Display::initializeEGL()
 		return	false;
 	}
 
-	Window::Ptr	pWindow	= System::getWindow();
+	HWND	hWnd	= NULL;
 
-	if (nullptr == pWindow)
+	SystemWindow::Ptr	pWindow	= System::getWindow();
+
+	if (pWindow != nullptr)
 	{
-		Log::instance()->logError("Window is invalid");
+		hWnd	= pWindow->getHwnd();
+	}
+
+	if (NULL == hWnd)
+	{
+		Log::instance()->logError("Window handle is invalid");
 
 		return	false;
 	}
 
-	m_eglSurface	= eglCreateWindowSurface(m_eglDisplay, m_eglConfig, pWindow->getHandle(), NULL);
+	m_eglSurface	= eglCreateWindowSurface(m_eglDisplay, m_eglConfig, (EGLNativeWindowType)hWnd, NULL);
 
 	if (EGL_NO_SURFACE == m_eglSurface)
 	{

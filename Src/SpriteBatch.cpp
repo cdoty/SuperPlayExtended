@@ -2,10 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 #include "CustomVertex.h"
-#include "Display.h"
 #include "Log.h"
 #include "SpriteBatch.h"
 #include "System.h"
+#include "SystemDisplay.h"
 
 SpriteBatch::SpriteBatch()	:
 	m_pBuffer(NULL),
@@ -38,7 +38,7 @@ bool SpriteBatch::initialize(int _iSprites)
 {
 	m_iMaxSprites	= _iSprites;
 	
-	Display::Ptr	pDisplay	= System::getDisplay();
+	SystemDisplay::Ptr	pDisplay	= System::getDisplay();
 
 	if (nullptr == pDisplay)
 	{
@@ -94,7 +94,7 @@ bool SpriteBatch::initialize(int _iSprites)
 
 void SpriteBatch::close()
 {
-	Display::Ptr pDisplay	= System::getDisplay();
+	SystemDisplay::Ptr pDisplay	= System::getDisplay();
 
 	if (pDisplay != nullptr)
 	{
@@ -118,7 +118,7 @@ void SpriteBatch::startBatch(const Rect& _rctClip)
 {
 	if (_rctClip.iWidth > 0 && _rctClip.iHeight > 0)
 	{
-		Display::Ptr pDisplay	= System::getDisplay();
+		SystemDisplay::Ptr pDisplay	= System::getDisplay();
 
 		if (pDisplay != nullptr)
 		{
@@ -142,7 +142,7 @@ void SpriteBatch::drawSprite(int _iTextureHash, float _fX, float _fY, float _fWi
 	{
 		m_iTextureIndex	= _iTextureHash;
 
-		Display::Ptr pDisplay	= System::getDisplay();
+		SystemDisplay::Ptr pDisplay	= System::getDisplay();
 
 		if (pDisplay != nullptr)
 		{
@@ -215,7 +215,7 @@ void SpriteBatch::endBatch()
 	// Draw any remaining sprite batches.
 	drawBatch();
 
-	Display::Ptr	pDisplay	= System::getDisplay();
+	SystemDisplay::Ptr	pDisplay	= System::getDisplay();
 
 	if (pDisplay != nullptr)
 	{
@@ -229,7 +229,7 @@ void SpriteBatch::drawBatch()
 
 	if (m_iSpriteIndex > 0)
 	{
-		Display::Ptr	pDisplay	= System::getDisplay();
+		SystemDisplay::Ptr	pDisplay	= System::getDisplay();
 
 		if (pDisplay != nullptr)
 		{
@@ -243,7 +243,7 @@ void SpriteBatch::drawBatch()
 
 bool SpriteBatch::getVertexBuffer()
 {
-	Display::Ptr	pDisplay	= System::getDisplay();
+	SystemDisplay::Ptr	pDisplay	= System::getDisplay();
 
 	if (nullptr == pDisplay)
 	{

@@ -1,19 +1,21 @@
 #pragma once
 
+#include  <X11/Xlib.h>
+
 #include <EGL/egl.h>
 #include <SDL2/SDL.h>
 
 #include "Macros.h"
 #include "WindowBase.h"
 
-class Window : public WindowBase
+class SystemWindow : public WindowBase
 {
 	public:
-		PTR(Window)
+		PTR(SystemWindow)
 		SUPER(WindowBase)
 
 		// Destructor
-		~Window();
+		~SystemWindow();
 
 		// Create
 		static Ptr create();
@@ -30,18 +32,17 @@ class Window : public WindowBase
 		// Quit
 		void quit() override;
 
-		// Get handle
-		EGLNativeWindowType getHandle() const {return m_windowType;}
-		
+		// Get native window
+		const Window& getNativeWindow() const {return m_window;}
+
 	private:
-		SDL_Window*				m_pSDLWindow;		// SDL window
-		EGLNativeDisplayType	m_displayType;		// Native display type
-		EGLNativeWindowType		m_windowType;		// Native window type
-		int						m_iXDirection;		// X direction
-		int						m_iYDirection;		// X direction
+		Display*	m_pDisplay;		// X window display
+		Window		m_window;		// Window
+		int			m_iXDirection;	// X direction
+		int			m_iYDirection;	// X direction
 
 		// Constructor
-		Window();
+		SystemWindow();
 
 		// Create window
 		bool createWindow();

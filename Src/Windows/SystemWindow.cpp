@@ -9,10 +9,10 @@
 #include "KeyDefines.h"
 #include "Log.h"
 #include "System.h"
-#include "Window.h"
+#include "SystemWindow.h"
 #include "..\Resources\Windows\Resource.h"
 
-Window::Window()	:
+SystemWindow::SystemWindow()	:
 	super(),
 	m_hInstance(NULL),
 	m_hWnd(NULL),
@@ -22,24 +22,24 @@ Window::Window()	:
 {
 }
 
-Window::~Window()
+SystemWindow::~SystemWindow()
 {
 	close();
 }
 
-Window::Ptr Window::create()
+SystemWindow::Ptr SystemWindow::create()
 {
-	INSTANCE(pWindow, Window())
+	INSTANCE(pSystemWindow, SystemWindow())
 
-	if (false == pWindow->initialize())
+	if (false == pSystemWindow->initialize())
 	{
-		pWindow.reset();
+		pSystemWindow.reset();
 	}
 
-	return	pWindow;
+	return	pSystemWindow;
 }
 
-bool Window::initialize()
+bool SystemWindow::initialize()
 {
 	if (true == isTestMode())
 	{
@@ -117,11 +117,11 @@ bool Window::initialize()
 	return	true;
 }
 
-void Window::close()
+void SystemWindow::close()
 {
 }
 
-bool Window::update()
+bool SystemWindow::update()
 {
 	MSG	msg;
 
@@ -141,12 +141,12 @@ bool Window::update()
 	return	true;
 }
 
-void Window::quit()
+void SystemWindow::quit()
 {
 	PostQuitMessage(0);
 }
 
-void Window::setMonitorRect(const RECT& _rctMonitor)
+void SystemWindow::setMonitorRect(const RECT& _rctMonitor)
 {
 	m_rctMonitor.left	= _rctMonitor.left;
 	m_rctMonitor.top	= _rctMonitor.top;
@@ -154,7 +154,7 @@ void Window::setMonitorRect(const RECT& _rctMonitor)
 	m_rctMonitor.bottom	= _rctMonitor.bottom;
 }
 
-LRESULT CALLBACK Window::messageProc(HWND _hWnd, UINT _uMsg, WPARAM _wParam, LPARAM _lParam)
+LRESULT CALLBACK SystemWindow::messageProc(HWND _hWnd, UINT _uMsg, WPARAM _wParam, LPARAM _lParam)
 {
 	switch (_uMsg)
 	{

@@ -8,10 +8,10 @@
 #include "Log.h"
 #include "System.h"
 
-Display::Ptr			System::ms_pDisplay;			// Display
 Game::Ptr				System::ms_pGame;				// Game
 ResourceManager::Ptr	System::ms_pResourceManager;	// Resource manager
-Window::Ptr				System::ms_pWindow;				// Window
+SystemDisplay::Ptr		System::ms_pDisplay;			// Display
+SystemWindow::Ptr		System::ms_pWindow;				// Window
 bool					System::ms_bExit	= false;	// Exit?
 
 static const char*	gsc_szTranslationsDirectory	= "Translations";	// Translation directory
@@ -20,14 +20,14 @@ bool System::initialize()
 {
 	readSettings();
 
-	ms_pWindow	= Window::create();
+	ms_pWindow	= SystemWindow::create();
 
 	if (nullptr == ms_pWindow)
 	{
 		return	false;
 	}
 
-	ms_pDisplay	= Display::create();
+	ms_pDisplay	= SystemDisplay::create();
 
 	if (nullptr == ms_pDisplay)
 	{
@@ -101,17 +101,17 @@ void System::run()
 	}
 }
 
-bool System::mouseButtonDown(int _x, int _y, Window::MouseButton _button)
+bool System::mouseButtonDown(int _x, int _y, WindowBase::MouseButton _button)
 {
 	return	false;
 }
 
-bool System::mouseButtonUp(int _x, int _y, Window::MouseButton _button)
+bool System::mouseButtonUp(int _x, int _y, WindowBase::MouseButton _button)
 {
 	return	false;
 }
 
-bool System::mouseDoubleClick(int _x, int _y, Window::MouseButton _button)
+bool System::mouseDoubleClick(int _x, int _y, WindowBase::MouseButton _button)
 {
 	return	false;
 }
