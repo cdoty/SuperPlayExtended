@@ -65,9 +65,6 @@
     <ClInclude Include="Src\Defines.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Windows\Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Src\System.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -76,9 +73,6 @@
     </ClInclude>
     <ClInclude Include="Resources\Windows\targetver.h">
       <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Windows\Display.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\CustomVertex.h">
       <Filter>Header Files</Filter>
@@ -146,6 +140,12 @@
     <ClInclude Include="Src\Windows\PlatformDefines.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Windows\SystemDisplay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Windows\SystemWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Windows\Main.cpp">
@@ -163,13 +163,7 @@
     <ClCompile Include="Shared\Functions.cpp">
       <Filter>Shared\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Windows\Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Src\System.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Windows\Display.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\IndexBuffer.cpp">
@@ -212,6 +206,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\Program.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Windows\SystemDisplay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Windows\SystemWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

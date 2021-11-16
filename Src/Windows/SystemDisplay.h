@@ -2,10 +2,10 @@
 
 #include "DisplayBase.h"
 
-class Display : public DisplayBase
+class SystemDisplay : public DisplayBase
 {
 	public:
-		PTR(Display)
+		PTR(SystemDisplay)
 		SUPER(DisplayBase)
 
 		// Create
@@ -13,7 +13,7 @@ class Display : public DisplayBase
 
 	private:
 		// Constructor
-		Display();
+		SystemDisplay();
 
 		// Initialize EGL
 		bool initializeEGL() override;

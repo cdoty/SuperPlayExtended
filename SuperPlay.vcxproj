@@ -123,9 +123,9 @@
     <ClInclude Include="Src\VertexBuffer.h" />
     <ClInclude Include="Src\VertexShader.h" />
     <ClInclude Include="Src\Windows\CommandLine.h" />
-    <ClInclude Include="Src\Windows\Display.h" />
     <ClInclude Include="Src\Windows\PlatformDefines.h" />
-    <ClInclude Include="Src\Windows\Window.h" />
+    <ClInclude Include="Src\Windows\SystemDisplay.h" />
+    <ClInclude Include="Src\Windows\SystemWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shared\Base\FileBase.cpp" />
@@ -147,9 +147,9 @@
     <ClCompile Include="Src\TileMap.cpp" />
     <ClCompile Include="Src\VertexBuffer.cpp" />
     <ClCompile Include="Src\Windows\CommandLine.cpp" />
-    <ClCompile Include="Src\Windows\Display.cpp" />
     <ClCompile Include="Src\Windows\Main.cpp" />
-    <ClCompile Include="Src\Windows\Window.cpp" />
+    <ClCompile Include="Src\Windows\SystemDisplay.cpp" />
+    <ClCompile Include="Src\Windows\SystemWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Windows\Application.ico" />

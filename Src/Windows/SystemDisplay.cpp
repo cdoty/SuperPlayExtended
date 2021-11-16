@@ -2,9 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 #include "Defines.h"
-#include "Display.h"
 #include "Log.h"
 #include "System.h"
+#include "SystemDisplay.h"
 
 #pragma comment(lib, "libEGL.dll.lib")
 #pragma comment(lib, "libGLESv2.dll.lib")

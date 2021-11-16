@@ -12,13 +12,6 @@
 class SystemWindow : public WindowBase
 {
 	public:
-		enum MouseButton
-		{
-			MouseButtonLeft		= 1,
-			MouseButtonMiddle	= 2,
-			MouseButtonRight	= 4
-		};
-
 		PTR(SystemWindow)
 		SUPER(WindowBase)
 
