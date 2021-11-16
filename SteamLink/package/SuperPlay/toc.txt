@@ -1,3 +1,0 @@
-name=SuperPlay
-icon=icon.png
-run=SuperPlay
