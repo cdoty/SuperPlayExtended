@@ -92,9 +92,6 @@
     <ClInclude Include="Src\Rect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\RenderParams.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Src\SpriteBatch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -137,13 +134,19 @@
     <ClInclude Include="Src\Program.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Windows\PlatformDefines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Windows\SystemDisplay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Windows\SystemWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Windows\SystemGL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Windows\SystemDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Windows\SystemFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -184,9 +187,6 @@
     <ClCompile Include="Src\Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shared\Libraries\STB\stb_image.cpp">
-      <Filter>Libraries\STB</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -212,6 +212,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\Windows\SystemWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Windows\SystemFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

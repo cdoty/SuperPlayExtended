@@ -5,6 +5,8 @@
 #include "Functions.h"
 #include "Image.h"
 #include "Log.h"
+
+#define	STB_IMAGE_IMPLEMENTATION
 #include "STB/stb_image.h"
 
 Image::Image()	:
@@ -82,7 +84,7 @@ bool Image::initialize(const std::string& _strFilename)
 	m_iWidth	= iWidth;
 	m_iHeight	= iHeight;
 
-#if (!defined __ANDROID__ && !defined ANGLE) || (!defined __ARMEL__ && defined __APPLE__)
+#if defined ARGB_TEXTURES
 	uint32_t*	pBuffer	= m_pImage;
 
 	for (int iLoop = 0; iLoop < m_iWidth * m_iHeight; ++iLoop)
@@ -100,7 +102,10 @@ bool Image::initialize(const std::string& _strFilename)
 
 void Image::close()
 {
-	delete[]	m_pImage;
+	if (m_pImage != NULL)
+	{
+		stbi_image_free(m_pImage);
 
-	m_pImage	= NULL;
+		m_pImage	= NULL;
+	}
 }

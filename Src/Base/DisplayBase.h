@@ -1,9 +1,8 @@
 #pragma once
 
-#include <EGL/egl.h>
-
 #include "IndexBuffer.h"
 #include "Rect.h"
+#include "SystemGL.h"
 #include "Texture.h"
 #include "VertexBuffer.h"
 #include "VMath/vmath.h"
@@ -116,9 +115,7 @@ class DisplayBase
 		GLuint		m_uVertexShader;			// Shader
 		GLuint		m_uPixelShader;
 		GLuint		m_uShaderProgram;			// Shader program
-#ifdef __IOS__
 		GLuint		m_uDefaultFrameBuffer;		// Default frame buffer
-#endif
 		GLuint		m_uFrameBuffer;				// Frame buffer
 		GLuint		m_uRenderTexture;			// Render texture
 		int			m_iVertexBuffer;			// Vertex buffer

@@ -31,9 +31,7 @@ DisplayBase::DisplayBase()	:
 	m_uVertexShader(0),
 	m_uPixelShader(0),
 	m_uShaderProgram(0),
-#ifdef __IOS__
 	m_uDefaultFrameBuffer(0),
-#endif
 	m_uFrameBuffer(0),
 	m_uRenderTexture(0),
 	m_iVertexBuffer(-1)
@@ -89,11 +87,7 @@ void DisplayBase::clear()
 
 void DisplayBase::present()
 {
-#if defined __IOS__
 	glBindFramebuffer(GL_FRAMEBUFFER, m_uDefaultFrameBuffer);
-#else
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-#endif
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -196,11 +190,7 @@ bool DisplayBase::createRenderTarget(int _iWidth, int _iHeight, GLint _iFormat)
 	int	iTextureWidth	= Functions::getNextPowerOfTwo(_iWidth);
 	int	iTextureHeight	= Functions::getNextPowerOfTwo(_iHeight);
 	
-#if defined __IOS__
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, iTextureWidth, iTextureHeight, 0, GL_BGRA_EXT, GL_UNSIGNED_BYTE, NULL);
-#else
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, iTextureWidth, iTextureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-#endif
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, iTextureWidth, iTextureHeight, 0, gsc_textureFormat, GL_UNSIGNED_BYTE, NULL);
 
 	error	= glGetError();
 
@@ -258,11 +248,7 @@ bool DisplayBase::createRenderTarget(int _iWidth, int _iHeight, GLint _iFormat)
 		return	false;
 	}
 
-#if defined __IOS__
 	glBindFramebuffer(GL_FRAMEBUFFER, m_uDefaultFrameBuffer);
-#elif defined __ANDROID__ || defined ANGLE
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-#endif
 
 	return	true;
 }
@@ -659,40 +645,23 @@ bool DisplayBase::setupVertices()
 	
 		iIndex++;
 
-#ifdef __IOS__
-		pBuffer[iIndex].fX	= fOffsetX;
-		pBuffer[iIndex].fY	= m_iHeight - fOffsetY;
-#else
 		pBuffer[iIndex].fX	= fOffsetX;
 		pBuffer[iIndex].fY	= fOffsetY + m_fRenderHeight;
-#endif
-
 		pBuffer[iIndex].fU	= 0.0f;
 		pBuffer[iIndex].fV	= 0.0f;
 	
 		iIndex++;
 
-#ifdef __IOS__
-		pBuffer[iIndex].fX	= m_iWidth - fOffsetX;
-		pBuffer[iIndex].fY	= fOffsetY;
-#else
 		pBuffer[iIndex].fX	= fOffsetX + m_fRenderWidth;
 		pBuffer[iIndex].fY	= fOffsetY;
-#endif
 
 		pBuffer[iIndex].fU	= m_fU2;
 		pBuffer[iIndex].fV	= m_fV2;
 	
 		iIndex++;
 
-#ifdef __IOS__
-		pBuffer[iIndex].fX	= m_iWidth - fOffsetX;
-		pBuffer[iIndex].fY	= m_iHeight - fOffsetY;
-#else
 		pBuffer[iIndex].fX	= fOffsetX + m_fRenderWidth;
 		pBuffer[iIndex].fY	= fOffsetY + m_fRenderHeight;
-#endif
-
 		pBuffer[iIndex].fU	= m_fU2;
 		pBuffer[iIndex].fV	= 0.0f;
 

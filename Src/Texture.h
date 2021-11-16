@@ -1,20 +1,7 @@
 #pragma once
 
-#ifdef __APPLE__
-#include <TargetConditionals.h>
-#if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
-#include <OpenGLES/ES1/gl.h>
-#include <OpenGLES/ES1/glext.h>
-#else
-#include <OpenGL/gl.h>
-#endif
-#elif defined __ANDROID__ || defined ANGLE || defined ROKU || defined STEAMLINK || defined RASPBERRYPI
-#include <GLES2/gl2.h>
-#else
-#include <GL/gl.h>
-#endif
-
 #include "Macros.h"
+#include "SystemGL.h"
 
 class Texture
 {

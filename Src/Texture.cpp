@@ -1,20 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
-#include <math.h>
-#include <string.h>
-
 #include "Functions.h"
 #include "Log.h"
 #include "System.h"
 #include "Texture.h"
-
-#if defined __APPLE__ 
-#include <TargetConditionals.h>
-#if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
-#define __IOS__
-#endif
-#endif
 
 Texture::Texture()	:
 	m_uTextureID(GL_INVALID_VALUE),
@@ -168,11 +158,7 @@ bool Texture::unlockTexture()
 {
 	glBindTexture(GL_TEXTURE_2D, m_uTextureID);
 
-#if defined __IOS__
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, iStartY, m_iTextureWidth, iHeight, GL_BGRA_EXT, GL_UNSIGNED_BYTE, m_pTextureBuffer.get());
-#else
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_iTextureWidth, m_iTextureHeight, GL_RGBA, GL_UNSIGNED_BYTE, m_pTextureBuffer.get());
-#endif
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_iTextureWidth, m_iTextureHeight, gsc_textureFormat, GL_UNSIGNED_BYTE, m_pTextureBuffer.get());
 
 	return	true;
 }
@@ -211,11 +197,7 @@ bool Texture::generateTexture()
 
 bool Texture::setupTexture()
 {
-#if defined __IOS__
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_iTextureWidth, m_iTextureHeight, 0, GL_BGRA_EXT, GL_UNSIGNED_BYTE, m_pTextureBuffer.get());
-#else
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_iTextureWidth, m_iTextureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_pTextureBuffer.get());
-#endif
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_iTextureWidth, m_iTextureHeight, 0, gsc_textureFormat, GL_UNSIGNED_BYTE, m_pTextureBuffer.get());
 
 	GLenum	error	= glGetError();
 

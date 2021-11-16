@@ -113,7 +113,6 @@
     <ClInclude Include="Src\Point.h" />
     <ClInclude Include="Src\Program.h" />
     <ClInclude Include="Src\Rect.h" />
-    <ClInclude Include="Src\RenderParams.h" />
     <ClInclude Include="Src\ResourceManager.h" />
     <ClInclude Include="Src\Sprite.h" />
     <ClInclude Include="Src\SpriteBatch.h" />
@@ -123,14 +122,15 @@
     <ClInclude Include="Src\VertexBuffer.h" />
     <ClInclude Include="Src\VertexShader.h" />
     <ClInclude Include="Src\Windows\CommandLine.h" />
-    <ClInclude Include="Src\Windows\PlatformDefines.h" />
+    <ClInclude Include="Src\Windows\SystemDefines.h" />
     <ClInclude Include="Src\Windows\SystemDisplay.h" />
+    <ClInclude Include="Src\Windows\SystemFunctions.h" />
+    <ClInclude Include="Src\Windows\SystemGL.h" />
     <ClInclude Include="Src\Windows\SystemWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shared\Base\FileBase.cpp" />
     <ClCompile Include="Shared\Functions.cpp" />
-    <ClCompile Include="Shared\Libraries\STB\stb_image.cpp" />
     <ClCompile Include="Shared\Log.cpp" />
     <ClCompile Include="Shared\WIndows\File.cpp" />
     <ClCompile Include="Src\Base\DisplayBase.cpp" />
@@ -149,6 +149,7 @@
     <ClCompile Include="Src\Windows\CommandLine.cpp" />
     <ClCompile Include="Src\Windows\Main.cpp" />
     <ClCompile Include="Src\Windows\SystemDisplay.cpp" />
+    <ClCompile Include="Src\Windows\SystemFunctions.cpp" />
     <ClCompile Include="Src\Windows\SystemWindow.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,27 +1,18 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
-#ifdef _WIN32
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
-#endif
-
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
-
-#include <Windows.h>
-#endif
-
 #include <stdarg.h>
 
 #include "File.h"
 #include "Log.h"
+#include "SystemFunctions.h"
 
 Log::Ptr	Log::m_pInstance	= nullptr;	// Instance
 
+#ifdef WRITE_LOGS
 static const char*	gsc_szDefaultLogFile	= "Log.html";	// Default log file
 static const char*	gsc_szDefaultLogTitle	= "Log Output";	// Defauly log title
+#endif
 
 Log::Log()
 {
@@ -173,17 +164,8 @@ void Log::logString(eLogType _eType, const std::string& _strNewString)
 	m_strLogStrings.push_back(_strNewString);
 	m_strLogStrings.push_back("</FONT><BR>");
 
-#if defined _WIN32
-#if defined _DEBUG
-	OutputDebugStringA(_strNewString.c_str());
-	OutputDebugStringA("\n");
-#endif
-#endif
-
-#if defined ROKU || defined STEAMLINK || defined RASPBERRYPI
-	fprintf(stderr, _strNewString.c_str());
-	fprintf(stderr, "\n");
-#endif
+	debugOutput(_strNewString.c_str());
+	debugOutput("\n");
 }
 
 #ifdef WRITE_LOGS

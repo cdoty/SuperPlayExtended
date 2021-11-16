@@ -8,7 +8,7 @@
 #include "File.h"
 #include "Functions.h"
 #include "Log.h"
-#include "PlatformDefines.h"
+#include "SystemDefines.h"
 #include "UTF8/utf8.h"
 
 std::random_device	Functions::ms_randomDevice;	// Random device
@@ -57,46 +57,22 @@ int Functions::getHash(const std::string& _strString)
 	return	iHash;
 }
 
-uint16_t Functions::adjustForEndian(uint16_t _value)
+uint16_t Functions::convertToBigEndian(uint16_t _value)
 {
-	uint16_t	value;
+	uint8_t	byte1	= (_value & 0xFF000000) >> 24;
+	uint8_t	byte2	= (_value & 0x00FF0000) >> 16;
 
-	if (true == gsc_bSwapEndian)
-	{
-		uint8_t	byte1	= (_value & 0xFF000000) >> 24;
-		uint8_t	byte2	= (_value & 0x00FF0000) >> 16;
-
-		value	= ((uint16_t)byte2 << 8) | (uint16_t)byte1;
-	}
-
-	else
-	{
-		value	= _value;
-	}
-
-	return	value;
+	return	((uint16_t)byte2 << 8) | (uint16_t)byte1;
 }
 
-uint32_t Functions::adjustForEndian(uint32_t _value)
+uint32_t Functions::convertToBigEndian(uint32_t _value)
 {
-	uint32_t	value;
+	uint8_t	byte1	= (_value & 0xFF000000) >> 24;
+	uint8_t	byte2	= (_value & 0x00FF0000) >> 16;
+	uint8_t	byte3	= (_value & 0x0000FF00) >> 8;
+	uint8_t	byte4	= (_value & 0x000000FF);
 
-	if (true == gsc_bSwapEndian)
-	{
-		uint8_t	byte1	= (_value & 0xFF000000) >> 24;
-		uint8_t	byte2	= (_value & 0x00FF0000) >> 16;
-		uint8_t	byte3	= (_value & 0x0000FF00) >> 8;
-		uint8_t	byte4	= (_value & 0x000000FF);
-
-		value	= ((uint32_t)byte4 << 24) | ((uint32_t)byte3 << 16) | ((uint32_t)byte2 << 8) | (uint32_t)byte1;
-	}
-
-	else
-	{
-		value	= _value;
-	}
-
-	return	value;
+	return	((uint32_t)byte4 << 24) | ((uint32_t)byte3 << 16) | ((uint32_t)byte2 << 8) | (uint32_t)byte1;
 }
 
 void Functions::convertToLowerCase(std::string& _strString)

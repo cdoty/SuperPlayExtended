@@ -13,9 +13,9 @@ class Functions
 		// String hash
 		static int getHash(const std::string& _strString);
 	
-		// Adjust for endian
-		static uint16_t adjustForEndian(uint16_t _value);
-		static uint32_t adjustForEndian(uint32_t _value);
+		// Convert to big endian
+		static uint16_t convertToBigEndian(uint16_t _value);
+		static uint32_t convertToBigEndian(uint32_t _value);
 
 		// Convert string to lower case
 		static void convertToLowerCase(std::string& _strString);

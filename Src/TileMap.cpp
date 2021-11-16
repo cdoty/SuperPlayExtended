@@ -408,7 +408,11 @@ bool TileMap::loadTilemap(const std::string& _strTileMap)
 			return	false;
 		}
 
-		*pBuffer	= Functions::adjustForEndian(tile);
+#if defined BIG_ENDIAN
+		tile	= Functions::convertToBigEndian(tile);
+#endif
+
+		*pBuffer	= tile;
 		pBuffer++;
 
 		// Read file value
