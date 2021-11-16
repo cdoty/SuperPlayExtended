@@ -27,7 +27,7 @@ class TileMap
 		void render();
 
 		// Set tilemap
-		bool setTileMap(const std::string& _strTileMap, int _iStartX, int _iStartY, int _iBlankTile = -1);
+		bool setTileMap(const std::string& _strTileMap, int _iStartX, int _iStartY, int _iTileWidth, int _iTileHeight, int _iBlankTile = -1);
 
 	private:
 		SHAREDPTR(uint32_t, m_pTileMap);

@@ -199,7 +199,7 @@ bool Game::createTileMap()
 		return	false;
 	}
 
-	m_pTileMap->setTileMap("Maps/Map.map", 0, 0);
+	m_pTileMap->setTileMap("Maps/Map.map", 0, 0, 10, 30);
 
 	return	true;
 }

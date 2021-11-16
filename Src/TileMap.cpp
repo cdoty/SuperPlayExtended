@@ -8,8 +8,9 @@
 #include "System.h"
 #include "TileMap.h"
 
-static const int	gsc_iSpriteVertices	= 4;		// Sprite vertices
-static const int	gsc_iSpriteIndices	= 6;		// Sprite indices
+static const int	gsc_iSpriteVertices	= 4;	// Sprite vertices
+static const int	gsc_iSpriteIndices	= 6;	// Sprite indices
+static const int	gsc_iMapSize		= 2;	// Each map entry is 2 32 bit values
 
 TileMap::TileMap(int _iTileMapWidth, int _iTileMapHeight, int _iTileWidth, int _iTileHeight)	:
 	m_iTextureIndex(-1),
@@ -83,7 +84,7 @@ void TileMap::render()
 	}
 }
 
-bool TileMap::setTileMap(const std::string& _strTileMap, int _iStartX, int _iStartY, int _iBlankTile)
+bool TileMap::setTileMap(const std::string& _strTileMap, int _iStartX, int _iStartY, int _iTileWidth, int _iTileHeight, int _iBlankTile)
 {	
 	if (_iStartX >= m_iTileMapWidth || _iStartY >= m_iTileMapHeight)
 	{
@@ -114,18 +115,18 @@ bool TileMap::setTileMap(const std::string& _strTileMap, int _iStartX, int _iSta
 	int	iEndX	= _iStartX + m_iTileMapWidth;
 	int	iEndY	= _iStartY + m_iTileMapHeight;
 
-	if (iEndX > m_iTileMapWidth)
+	if (iEndX > _iTileWidth)
 	{
-		iEndX	= m_iTileMapWidth;
+		iEndX	= _iTileWidth;
 	}
 
-	if (iEndY > m_iTileMapHeight)
+	if (iEndY > _iTileHeight)
 	{
-		iEndY	= m_iTileMapHeight;
+		iEndY	= _iTileHeight;
 	}
 
 	int	iStrideX	= m_iTileMapWidth - (iEndX - _iStartX);
-	int	iMapStrideX	= m_iTileMapWidth - (iEndX - _iStartX);
+	int	iMapStrideX	= _iTileWidth - (iEndX - _iStartX);
 
 	pTileMap	+= (_iStartY * m_iTileMapWidth + _iStartX);
 
@@ -167,7 +168,7 @@ bool TileMap::setTileMap(const std::string& _strTileMap, int _iStartX, int _iSta
 		}
 	}
 
-	pVertexBuffer	= pVertexBufferMemory.get() + (_iStartY * m_iTileMapWidth + _iStartX) * gsc_iSpriteVertices;
+	pVertexBuffer	= pVertexBufferMemory.get();
 
 	for (int iYLoop = _iStartY; iYLoop < iEndY; ++iYLoop)
 	{
@@ -195,12 +196,12 @@ bool TileMap::setTileMap(const std::string& _strTileMap, int _iStartX, int _iSta
 			pVertexBuffer[3].fU	= fSourceU2;
 			pVertexBuffer[3].fV	= fSourceV1;
 
-			pTileMap	+= 2;
-
+			pTileMap++;
 			pVertexBuffer	+= gsc_iSpriteVertices;
 		}
 
 		pVertexBuffer	+= gsc_iSpriteVertices * iStrideX;
+		pTileMap		+= iMapStrideX;
 	}
 
 	return	true;
@@ -390,14 +391,14 @@ bool TileMap::loadTilemap(const std::string& _strTileMap)
 	int	iLength	= pFile->getLength();
 	int	iTiles;
 
-	if (iLength / (int)(sizeof(uint32_t) * 2) > m_iMaxSprites)
+	if (iLength / (int)(sizeof(uint32_t) * gsc_iMapSize) > m_iMaxSprites)
 	{
 		iTiles	= m_iMaxSprites;
 	}
 
 	else
 	{
-		iTiles	= iLength / (sizeof(uint32_t) * 2);
+		iTiles	= iLength / (sizeof(uint32_t) * gsc_iMapSize);
 	}
 
 	uint32_t*	pBuffer	= m_pTileMap.get();
@@ -418,7 +419,7 @@ bool TileMap::loadTilemap(const std::string& _strTileMap)
 		*pBuffer	= tile;
 		pBuffer++;
 
-		// Read file value
+		// Read flip value
 		if (false == pFile->readUnsigned32Bit(tile))
 		{
 			return	false;
