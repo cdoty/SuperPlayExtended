@@ -1,6 +1,4 @@
-
-Version=1.0
-Type=Application
+[Desktop Entry]
 Name=SuperPlay
 Comment=Super Play EGL framework
 Exec=SuperPlay

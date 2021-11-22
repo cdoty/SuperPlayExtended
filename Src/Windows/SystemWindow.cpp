@@ -113,12 +113,18 @@ bool SystemWindow::initialize()
 	ShowWindow(m_hWnd, SW_SHOW);
 	SetActiveWindow(m_hWnd);
 	SetFocus(m_hWnd);
-	
+
 	return	true;
 }
 
 void SystemWindow::close()
 {
+	if (m_hInstance != NULL)
+	{
+		UnregisterClassA(gsc_szAppName, m_hInstance);
+		
+		m_hInstance	= NULL;
+	}
 }
 
 bool SystemWindow::update()
