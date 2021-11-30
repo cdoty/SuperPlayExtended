@@ -43,9 +43,6 @@ class File : public FileBase
 		// Delete file
 		static bool deleteFile(const std::string& _strFilename);
 		
-		// Get handle
-		FILE* getHandle() const {return m_pHandle;}
-
 	private:
 		// Constructor
 		File();
